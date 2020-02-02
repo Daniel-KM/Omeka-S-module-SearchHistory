@@ -71,8 +71,8 @@
                 })
                 .done(function(data) {
                     if (data.status === 'success') {
-                        $(advancedSearchSave).addClass('search-request-hide');
-                        $(deleteSearchButton).closest('.search-request').removeClass('search-request-hide');
+                        $(advancedSearchSave).addClass('hidden');
+                        $(deleteSearchButton).closest('.search-request').removeClass('hidden');
                         $(deleteSearchButton).attr('href', data.data.url_delete);
                     }
                 });
@@ -81,7 +81,6 @@
                     ? Omeka.jsTranslate('Your search is saved.') + '<br/>' + Omeka.jsTranslate('You can find it in your account.')
                     : 'Your search is saved.' + '<br/>' + 'You can find it in your account.';
                 $('.popup-message', popup).html(messageHtml);
-            } else {
             }
 
             var popup = $(e.target).closest('.popup');
@@ -102,8 +101,8 @@
             $.ajax(deleteSearchButton.attr('href'))
             .done(function(data) {
                 if (data.status === 'success') {
-                    $(deleteSearchButton).closest('.search-request').addClass('search-request-hide');
-                    $(advancedSearchSave).removeClass('search-request-hide');
+                    $(deleteSearchButton).closest('.search-request').addClass('hidden');
+                    $(advancedSearchSave).removeClass('hidden');
                 }
             });
         });
