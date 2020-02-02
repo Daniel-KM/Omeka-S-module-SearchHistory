@@ -76,6 +76,11 @@ return  [
             ],
         ],
     ],
+    'js_translate_strings' => [
+        'No query is set.', // @translate
+        'Your search is saved.', // @translate
+        'You can find it in your account.', // @translate
+    ],
     'blocksdisposition' => [
         'item_set_browse' => [
             'SearchHistory',

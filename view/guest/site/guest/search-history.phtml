@@ -1,0 +1,55 @@
+<?php
+/**
+ * @var \Zend\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\SiteRepresentation $site
+ * @var \SearchHistory\Api\Representation\SearchRequestRepresentation[] $searchRequests
+ */
+
+$plugins = $this->getHelperPluginManager();
+$translate = $plugins->get('translate');
+$hyperlink = $plugins->get('hyperlink');
+
+$this->htmlElement('body')->appendAttribute('class', 'search-request browse');
+
+$sortHeadings = [
+    [
+        'label' => $translate('Comment'),
+        'value' => 'comment',
+    ],
+    [
+        'label' => $translate('Created'),
+        'value' => 'created',
+    ],
+];
+?>
+
+<?= $this->pageTitle($translate('Search History'), 2); ?>
+
+<?= $this->searchFilters() ?>
+
+<div class="browse-controls">
+    <?= $this->pagination() ?>
+    <?= $this->sortSelector($sortHeadings) ?>
+</div>
+
+<?php if (count($searchRequests)): ?>
+<h3><?= sprintf($translate('%d saved search requests'), count($searchRequests)) ?></h3>
+
+<?php $this->trigger('view.browse.before'); ?>
+<ul class="search-request-list">
+<?php foreach ($searchRequests as $searchRequest): ?>
+    <li class="search-request">
+        <h4><?= $searchRequest->comment() ?></h4>
+        <?= $hyperlink('Search again', $searchRequest->originalUrl()) ?>
+        <?= $hyperlink('Delete', $searchRequest->siteUrl()) ?>
+    </li>
+    <?php endforeach; ?>
+</ul>
+<?php $this->trigger('view.browse.after'); ?>
+<?= $this->pagination() ?>
+
+<?php else: ?>
+<p>
+    <?= $translate('No search requests are saved.') ?>
+</p>
+<?php endif; ?>

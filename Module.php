@@ -70,7 +70,7 @@ class Module extends AbstractModule
     public function handleViewShowAfter(Event $event)
     {
         $view = $event->getTarget();
-        echo $view->partial('common/search-history-add', $view->vars());
+        echo $view->partial('common/search-history-button', $view->vars());
     }
 
     public function handleGuestWidgets(Event $event)

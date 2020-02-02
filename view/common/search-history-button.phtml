@@ -1,0 +1,34 @@
+<?php
+/**
+ * @var \Zend\View\Renderer\PhpRenderer $this
+ */
+
+$translate = $this->plugin('translate');
+$url = $this->plugin('url');
+$assetUrl = $this->plugin('assetUrl');
+
+$this->headLink()
+    ->appendStylesheet($assetUrl('css/search-history.css', 'SearchHistory'));
+$this->headScript()
+    ->appendFile($assetUrl('js/search-history.js', 'SearchHistory'), 'text/javascript', ['defer' => 'defer']);
+?>
+
+<a class="search-history add save-filters save-search-button" href="<?= $url('site/search-history', ['action' => 'add'], true) ?>"><?= $translate('Save current search') ?></a>
+
+<div class="popup popup-search-save">
+    <div class="popup-background">
+        <div class="popup-panel">
+            <div class="popup-header">
+                <a href="#" class="popup-header-close-button"></a>
+            </div>
+            <div class="popup-contents">
+                <p><?= $translate('Give a name to your search') ?></p>
+                <input name="search-request-comment" type="text" required="required"/>
+            </div>
+            <div class="popup-message"></div>
+            <div class="popup-footer">
+                <input type="submit" value="<?= $translate('Save') ?>" />
+            </div>
+        </div>
+    </div>
+</div>
