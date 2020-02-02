@@ -15,6 +15,57 @@ return  [
             dirname(__DIR__) . '/data/doctrine-proxies',
         ],
     ],
+    'view_manager' => [
+        'template_path_stack' => [
+            dirname(__DIR__) . '/view',
+        ],
+        'strategies' => [
+            'ViewJsonStrategy',
+        ],
+    ],
+    'controllers' => [
+        'invokables' => [
+            'SearchHistory\Controller\Site\SearchHistory' => Controller\Site\SearchHistoryController::class,
+            'SearchHistory\Controller\Site\GuestBoard' => Controller\Site\GuestBoardController::class,
+        ],
+    ],
+    'router' => [
+        'routes' => [
+            'site' => [
+                'child_routes' => [
+                    'search-history' => [
+                        'type' => \Zend\Router\Http\Segment::class,
+                        'options' => [
+                            'route' => '/search-history[/:action]',
+                            'constraints' => [
+                                'action' => 'add|delete',
+                            ],
+                            'defaults' => [
+                                '__NAMESPACE__' => 'SearchHistory\Controller\Site',
+                                'controller' => 'SearchHistory',
+                                'action' => 'add',
+                            ],
+                        ],
+                    ],
+                    'search-history-id' => [
+                        'type' => \Zend\Router\Http\Segment::class,
+                        'options' => [
+                            'route' => '/search-history/:id[/:action]',
+                            'constraints' => [
+                                'action' => 'add|delete',
+                                'id' => '\d+',
+                            ],
+                            'defaults' => [
+                                '__NAMESPACE__' => 'SearchHistory\Controller\Site',
+                                'controller' => 'SearchHistory',
+                                'action' => 'update',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
     'translator' => [
         'translation_file_patterns' => [
             [
@@ -24,5 +75,18 @@ return  [
                 'text_domain' => null,
             ],
         ],
+    ],
+    'blocksdisposition' => [
+        'item_set_browse' => [
+            'SearchHistory',
+        ],
+        'item_browse' => [
+            'SearchHistory',
+        ],
+        'media_browse' => [
+            'SearchHistory',
+        ],
+    ],
+    'searchhistory' => [
     ],
 ];

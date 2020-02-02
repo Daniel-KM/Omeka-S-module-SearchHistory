@@ -1,0 +1,15 @@
+<?php
+/**
+ * @var \Zend\View\Renderer\PhpRenderer $this
+ */
+
+$translate = $this->plugin('translate');
+$urlHelper = $this->plugin('url');
+?>
+
+<ul>
+    <li>
+        <?php $url = $urlHelper('site/guest/search-history', [], true); ?>
+        <?= $this->hyperlink($translate('Search history'), $url) ?>
+    </li>
+</ul>
