@@ -34,6 +34,23 @@ return  [
             'SearchHistory\Controller\Site\GuestBoard' => Controller\Site\GuestBoardController::class,
         ],
     ],
+    'navigation_links' => [
+        'invokables' => [
+            'searchHistory' => Site\Navigation\Link\SearchHistory::class,
+        ],
+    ],
+    'navigation' => [
+        'site' => [
+            [
+                'label' => 'Search History', // @translate
+                'route' => 'site/guest/search-history',
+                'controller' => 'SearchHistory\Controller\Site\GuestBoard',
+                'action' => 'show',
+                'useRouteMatch' => true,
+                'visible' => false,
+            ],
+        ],
+    ],
     'router' => [
         'routes' => [
             'site' => [
