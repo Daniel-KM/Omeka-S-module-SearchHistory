@@ -82,10 +82,16 @@ class SearchRequestAdapter extends AbstractEntityAdapter
                 $alias . '.site',
                 $siteAlias
             );
-            $qb->andWhere($expr->eq(
-                $siteAlias . '.id',
-                $this->createNamedParameter($qb, $query['site_id']))
-            );
+            if ($query['site_id']) {
+                $qb->andWhere($expr->eq(
+                    $siteAlias . '.id',
+                    $this->createNamedParameter($qb, $query['site_id']))
+                );
+            }
+            // A "0" means a search in admin board.
+            else {
+                $qb->andWhere($expr->isNull($siteAlias . '.id'));
+            }
         }
     }
 }

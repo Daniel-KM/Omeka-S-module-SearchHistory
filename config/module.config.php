@@ -23,6 +23,11 @@ return  [
             'ViewJsonStrategy',
         ],
     ],
+    'view_helpers' => [
+        'invokables' => [
+            'linkSearchHistory' => View\Helper\LinkSearchHistory::class,
+        ],
+    ],
     'controllers' => [
         'invokables' => [
             'SearchHistory\Controller\Site\SearchRequest' => Controller\Site\SearchRequestController::class,

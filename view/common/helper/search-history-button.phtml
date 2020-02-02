@@ -1,7 +1,15 @@
 <?php
 /**
  * @var \Zend\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\SiteRepresentation $site
+ * @var \SearchHistory\Api\Representation\SearchRequestRepresentation $searchRequest
+ * @var string $engine
+ * @var string $query
  */
+
+if (!$engine):
+    return;
+endif;
 
 $translate = $this->plugin('translate');
 $url = $this->plugin('url');
@@ -13,7 +21,8 @@ $this->headScript()
     ->appendFile($assetUrl('js/search-history.js', 'SearchHistory'), 'text/javascript', ['defer' => 'defer']);
 ?>
 
-<a class="search-history add save-filters save-search-button" href="<?= $url('site/search-history', ['action' => 'add'], true) ?>"><?= $translate('Save current search') ?></a>
+<a class="search-history delete search-history-delete search-request delete-search-button<?= $searchRequest ? '' : ' search-request-hide' ?>" href="<?= $url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true) ?>"><?= $translate('Delete saved search') ?></a>
+<a class="search-history add save-filters save-search-button<?= $searchRequest ? ' search-request-hide' : ''?>" data-engine="<?= $engine ?>" href="<?= $url('site/search-history', ['action' => 'add'], true) ?>"><?= $translate('Save current search') ?></a>
 
 <div class="popup popup-search-save">
     <div class="popup-background">

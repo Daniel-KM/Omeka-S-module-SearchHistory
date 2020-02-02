@@ -85,8 +85,8 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
         if (is_numeric($engine)) {
             if ($this->isModuleActive('Search')) {
                 $api = $this->getServiceLocator()->get('Omeka\ApiManager');
-                $search = $api->search('search_pages', ['id' => $engine], ['returnScalar' => 'path'])->getContent();
-                $engine = $search ? reset($search) : null;
+                $engine = $api->search('search_pages', ['id' => $engine], ['returnScalar' => 'path'])->getContent();
+                $engine = $engine ? reset($engine) : null;
             }
         }
         return $engine;
@@ -110,7 +110,7 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
     public function originalUrl()
     {
         $engine = $this->engine();
-        if (empty($engine)) {
+        if (!strlen($engine)) {
             return null;
         }
 

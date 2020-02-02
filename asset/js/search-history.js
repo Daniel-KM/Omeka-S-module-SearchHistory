@@ -59,20 +59,21 @@
 
             var messageHtml;
 
-            var query = window.location.search;
+            var query = window.location.search.substring(1);
             if (query) {
                 $.ajax({
                     url: advancedSearchSave.attr('href'),
                     data: {
                         comment: $('input[name=search-request-comment]').val(),
+                        engine: advancedSearchSave.data('engine'),
                         query: query,
                     },
                 })
                 .done(function(data) {
                     if (data.status === 'success') {
-                        var msg = 'Delete the saved search.';
-                        link.replaceWith(hasOmeka ? Omeka.jsTranslate(msg) : msg);
-                    } else {
+                        $(advancedSearchSave).addClass('search-request-hide');
+                        $(deleteSearchButton).closest('.search-request').removeClass('search-request-hide');
+                        $(deleteSearchButton).attr('href', data.data.url_delete);
                     }
                 });
 
@@ -101,7 +102,8 @@
             $.ajax(deleteSearchButton.attr('href'))
             .done(function(data) {
                 if (data.status === 'success') {
-                    $(deleteSearchButton).closest('.search-request').remove();
+                    $(deleteSearchButton).closest('.search-request').addClass('search-request-hide');
+                    $(advancedSearchSave).removeClass('search-request-hide');
                 }
             });
         });

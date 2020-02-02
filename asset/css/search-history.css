@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.search-request-hide {
+    display: none;
+}
+
 .popup {
     display: none;
 }
@@ -13,7 +17,7 @@
 
 .popup-background {
     position: fixed;
-    top: 96px;
+    top: 0;
     left: 0;
     z-index: 5;
 

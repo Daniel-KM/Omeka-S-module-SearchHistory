@@ -23,12 +23,22 @@ class SearchRequestController extends AbstractActionController
         }
 
         $params = $this->params();
-        $query = $params->fromQuery('query');
+        $query = $this->cleanQuery();
         if (!$query) {
             return new JsonModel([
                 'status' => 'fail',
                 'data' => [
                     'query' => $this->translate('A query is required'), // @translate
+                ],
+            ]);
+        }
+
+        $engine = $params->fromQuery('engine');
+        if (!strlen($engine)) {
+            return new JsonModel([
+                'status' => 'fail',
+                'data' => [
+                    'engine' => $this->translate('The path of the engine is required'), // @translate
                 ],
             ]);
         }
@@ -41,13 +51,6 @@ class SearchRequestController extends AbstractActionController
         $comment = $params->fromQuery('comment');
         if (empty($comment)) {
             $comment = (new \DateTime())->format('Y-m-d H:i:s');
-        }
-
-        $engine = '';
-        $controller = $params->fromRoute('controller');
-        switch ($controller) {
-            case '':
-                break;
         }
 
         $searchRequest = [
@@ -72,6 +75,7 @@ class SearchRequestController extends AbstractActionController
             'status' => 'success',
             'data' => [
                 'search_request' => $searchRequest,
+                'url_delete' => $this->url()->fromRoute('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true),
             ],
         ]);
     }
@@ -124,6 +128,33 @@ class SearchRequestController extends AbstractActionController
                 'search_requests' => $results,
             ],
         ]);
+    }
+
+    /**
+     * Clean a request query.
+     *
+     * @see \SearchHistory\View\Helper\LinkSearchHistory::cleanQuery()
+     *
+     * @return string
+     */
+    protected function cleanQuery()
+    {
+        $params = $this->params();
+        $query = ltrim($params->fromQuery('query'), '?');
+
+        // Clean query for better search.
+        $request = [];
+        parse_str($query, $request);
+        unset($request['csrf']);
+        unset($request['page']);
+        unset($request['per_page']);
+        unset($request['offset']);
+        unset($request['limit']);
+        $request = array_filter($request, function ($v) {
+            return (bool) strlen($v);
+        });
+
+        return http_build_query($request);
     }
 
     protected function jsonErrorNotFound()
