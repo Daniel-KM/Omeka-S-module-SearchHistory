@@ -1,0 +1,98 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-03 00:00+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Module.php:82 view/guest/site/guest/search-history.phtml:33
+msgid "Search History"
+msgstr ""
+
+#: src/Controller/Site/SearchRequestController.php:21
+#: src/Controller/Site/SearchRequestController.php:93
+msgid "Access forbidden"
+msgstr ""
+
+#: src/Controller/Site/SearchRequestController.php:31
+msgid "A query is required"
+msgstr ""
+
+#: src/Controller/Site/SearchRequestController.php:41
+msgid "The path of the engine is required"
+msgstr ""
+
+#: src/Controller/Site/SearchRequestController.php:68
+msgid "Unable to save."
+msgstr ""
+
+#: src/Generic/AbstractModule.php:543
+#, php-format
+msgid "This module requires the module \"%s\"."
+msgstr ""
+
+#: src/Generic/AbstractModule.php:563
+#, php-format
+msgid "This module requires modules \"%s\"."
+msgstr ""
+
+#: src/Generic/AbstractModule.php:631
+#, php-format
+msgid ""
+"The module \"%s\" was automatically deactivated because the dependencies are "
+"unavailable."
+msgstr ""
+
+#: view/common/helper/search-history-button.phtml:24
+msgid "Delete saved search"
+msgstr ""
+
+#: view/common/helper/search-history-button.phtml:25
+msgid "Save current search"
+msgstr ""
+
+#: view/common/helper/search-history-button.phtml:34
+msgid "Give a name to your search"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:43
+#, php-format
+msgid "%d saved search requests"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:59
+msgid "No search requests are saved."
+msgstr ""
+
+#: view/guest/site/guest/widget/search-history.phtml:13
+msgid "Search history"
+msgstr ""
+
+#: src/Site/Navigation/Link/SearchHistory.php:23
+#, php-format
+msgid "Invalid navigation: link without label (%s)"
+msgstr ""
+
+#: config/module.config.php:122
+msgid "No query is set."
+msgstr ""
+
+#: config/module.config.php:123
+msgid "Your search is saved."
+msgstr ""
+
+#: config/module.config.php:124
+msgid "You can find it in your account."
+msgstr ""

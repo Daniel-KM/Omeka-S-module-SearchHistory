@@ -1,0 +1,100 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Daniel Berthereau <Daniel.github@Berthereau.net>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-03 00:00+0100\n"
+"PO-Revision-Date: 2020-02-03 00:00+0100\n"
+"Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: Module.php:82 view/guest/site/guest/search-history.phtml:33
+msgid "Search History"
+msgstr "Historique des recherches"
+
+#: src/Controller/Site/SearchRequestController.php:21
+#: src/Controller/Site/SearchRequestController.php:93
+msgid "Access forbidden"
+msgstr "Accès interdit"
+
+#: src/Controller/Site/SearchRequestController.php:31
+msgid "A query is required"
+msgstr "Une requête est nécessaire"
+
+#: src/Controller/Site/SearchRequestController.php:41
+msgid "The path of the engine is required"
+msgstr "Le chemin de recherche est nécessaire"
+
+#: src/Controller/Site/SearchRequestController.php:68
+msgid "Unable to save."
+msgstr "Impossible d’enregistrer."
+
+#: src/Generic/AbstractModule.php:543
+#, php-format
+msgid "This module requires the module \"%s\"."
+msgstr "Ce module requiert le module \"%s\"."
+
+#: src/Generic/AbstractModule.php:563
+#, php-format
+msgid "This module requires modules \"%s\"."
+msgstr "Ce module requiert les modules \"%s\"."
+
+#: src/Generic/AbstractModule.php:631
+#, php-format
+msgid ""
+"The module \"%s\" was automatically deactivated because the dependencies are "
+"unavailable."
+msgstr ""
+"Le module %s\" a été automatiquement désactivé car ses dépendances ne sont "
+"plus disponibles."
+
+#: view/common/helper/search-history-button.phtml:24
+msgid "Delete saved search"
+msgstr "Supprimer la recherche sauvegardée"
+
+#: view/common/helper/search-history-button.phtml:25
+msgid "Save current search"
+msgstr "Enregistrer la recherche"
+
+#: view/common/helper/search-history-button.phtml:34
+msgid "Give a name to your search"
+msgstr "Donnez un nom à votre recherche"
+
+#: view/guest/site/guest/search-history.phtml:43
+#, php-format
+msgid "%d saved search requests"
+msgstr "%d recherches sauvegardées"
+
+#: view/guest/site/guest/search-history.phtml:59
+msgid "No search requests are saved."
+msgstr "Aucune recherche n’est sauvegardée."
+
+#: view/guest/site/guest/widget/search-history.phtml:13
+msgid "Search history"
+msgstr "Historique de recherche"
+
+#: src/Site/Navigation/Link/SearchHistory.php:23
+#, php-format
+msgid "Invalid navigation: link without label (%s)"
+msgstr "Navigation invalide : lien sans label (%s)"
+
+#: config/module.config.php:122
+msgid "No query is set."
+msgstr "Aucune requête n’est indiquée."
+
+#: config/module.config.php:123
+msgid "Your search is saved."
+msgstr "Votre recherche est sauvegardée."
+
+#: config/module.config.php:124
+msgid "You can find it in your account."
+msgstr "Vous pouvez la retrouver dans votre compte."
