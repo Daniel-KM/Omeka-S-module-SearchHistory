@@ -4,7 +4,7 @@ namespace SearchHistory;
 return  [
     'api_adapters' => [
         'invokables' => [
-            'search_histories' => Api\Adapter\SearchHistoryAdapter::class,
+            'search_requests' => Api\Adapter\SearchRequestAdapter::class,
         ],
     ],
     'entity_manager' => [
@@ -25,7 +25,7 @@ return  [
     ],
     'controllers' => [
         'invokables' => [
-            'SearchHistory\Controller\Site\SearchHistory' => Controller\Site\SearchHistoryController::class,
+            'SearchHistory\Controller\Site\SearchRequest' => Controller\Site\SearchRequestController::class,
             'SearchHistory\Controller\Site\GuestBoard' => Controller\Site\GuestBoardController::class,
         ],
     ],
@@ -38,12 +38,12 @@ return  [
                         'options' => [
                             'route' => '/search-history[/:action]',
                             'constraints' => [
-                                'action' => 'add|delete',
+                                'action' => 'add|browse',
                             ],
                             'defaults' => [
                                 '__NAMESPACE__' => 'SearchHistory\Controller\Site',
-                                'controller' => 'SearchHistory',
-                                'action' => 'add',
+                                'controller' => 'SearchRequest',
+                                'action' => 'browse',
                             ],
                         ],
                     ],
@@ -52,13 +52,13 @@ return  [
                         'options' => [
                             'route' => '/search-history/:id[/:action]',
                             'constraints' => [
-                                'action' => 'add|delete',
+                                'action' => 'delete',
                                 'id' => '\d+',
                             ],
                             'defaults' => [
                                 '__NAMESPACE__' => 'SearchHistory\Controller\Site',
-                                'controller' => 'SearchHistory',
-                                'action' => 'update',
+                                'controller' => 'SearchRequest',
+                                'action' => 'edit',
                             ],
                         ],
                     ],

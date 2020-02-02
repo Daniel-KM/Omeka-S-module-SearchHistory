@@ -4,16 +4,16 @@ namespace SearchHistory\Api\Representation;
 
 use Omeka\Api\Representation\AbstractEntityRepresentation;
 
-class SearchHistoryRepresentation extends AbstractEntityRepresentation
+class SearchRequestRepresentation extends AbstractEntityRepresentation
 {
     public function getControllerName()
     {
-        return \SearchHistory\Controller\Admin\SearchHistoryController::class;
+        return \SearchHistory\Controller\Admin\SearchRequestController::class;
     }
 
     public function getJsonLdType()
     {
-        return 'o-module-search-history:SearchHistory';
+        return 'o-module-search-history:SearchRequest';
     }
 
     public function getJsonLd()

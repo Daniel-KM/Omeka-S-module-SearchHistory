@@ -11,11 +11,11 @@ use Omeka\Entity\User;
 /**
  * @Entity
  * @Table(
- *     name="search_history"
+ *     name="search_request"
  * )
  * @HasLifecycleCallbacks
  */
-class SearchHistory extends AbstractEntity
+class SearchRequest extends AbstractEntity
 {
     /**
      * @var int

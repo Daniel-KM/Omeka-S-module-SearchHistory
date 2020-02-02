@@ -9,7 +9,7 @@ use Omeka\Api\Request;
 use Omeka\Entity\EntityInterface;
 use Omeka\Stdlib\ErrorStore;
 
-class SearchHistoryAdapter extends AbstractEntityAdapter
+class SearchRequestAdapter extends AbstractEntityAdapter
 {
     protected $sortFields = [
         'id' => 'id',
@@ -21,17 +21,17 @@ class SearchHistoryAdapter extends AbstractEntityAdapter
 
     public function getResourceName()
     {
-        return 'search_histories';
+        return 'search_requests';
     }
 
     public function getRepresentationClass()
     {
-        return \SearchHistory\Api\Representation\SearchHistoryRepresentation::class;
+        return \SearchHistory\Api\Representation\SearchRequestRepresentation::class;
     }
 
     public function getEntityClass()
     {
-        return \SearchHistory\Entity\SearchHistory::class;
+        return \SearchHistory\Entity\SearchRequest::class;
     }
 
     public function hydrate(Request $request, EntityInterface $entity,

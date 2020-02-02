@@ -35,9 +35,9 @@ class Module extends AbstractModule
             ->allow(
                 $roles,
                 [
-                    Entity\SearchHistory::class,
-                    Api\Adapter\SearchHistoryAdapter::class,
-                    'SearchHistory\Controller\Site\SearchHistory',
+                    Entity\SearchRequest::class,
+                    Api\Adapter\SearchRequestAdapter::class,
+                    'SearchHistory\Controller\Site\SearchRequest',
                     'SearchHistory\Controller\Site\GuestBoard',
                 ]
         );
