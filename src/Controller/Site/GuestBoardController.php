@@ -16,18 +16,22 @@ class GuestBoardController extends AbstractActionController
 
     public function showAction()
     {
-        $user = $this->identity();
+        $site = $this->currentSite();
 
+        $user = $this->identity();
         $query = $this->params()->fromQuery();
         $query['user_id'] = $user->getId();
 
-        $searchRequests = $this->api()->search('search_requests', $query)->getContent();
+        $this->setBrowseDefaults('created');
+        $response = $this->api()->search('search_requests', $query);
+        $this->paginator($response->getTotalResults());
+        $searchRequests = $response->getContent();
 
         $view = new ViewModel;
-        $view
+        return $view
             ->setTemplate('guest/site/guest/search-history')
-            ->setVariable('site', $this->currentSite())
-            ->setVariable('searchRequests', $searchRequests);
-        return $view;
+            ->setVariable('site', $site)
+            ->setVariable('searchRequests', $searchRequests)
+            ->setVariable('resources', $searchRequests);
     }
 }

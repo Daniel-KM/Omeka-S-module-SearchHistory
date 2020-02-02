@@ -62,6 +62,26 @@ return  [
                             ],
                         ],
                     ],
+                    'guest' => [
+                        'type' => \Zend\Router\Http\Literal::class,
+                        'options' => [
+                            'route' => '/guest',
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'search-history' => [
+                                'type' => \Zend\Router\Http\Literal::class,
+                                'options' => [
+                                    'route' => '/search-history',
+                                    'defaults' => [
+                                        '__NAMESPACE__' => 'SearchHistory\Controller\Site',
+                                        'controller' => 'GuestBoard',
+                                        'action' => 'show',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],

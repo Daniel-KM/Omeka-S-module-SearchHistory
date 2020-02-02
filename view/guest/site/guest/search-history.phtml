@@ -8,6 +8,13 @@
 $plugins = $this->getHelperPluginManager();
 $translate = $plugins->get('translate');
 $hyperlink = $plugins->get('hyperlink');
+$url = $plugins->get('url');
+$assetUrl = $this->plugin('assetUrl');
+
+$this->headLink()
+    ->appendStylesheet($assetUrl('css/search-history.css', 'SearchHistory'));
+$this->headScript()
+    ->appendFile($assetUrl('js/search-history.js', 'SearchHistory'), 'text/javascript', ['defer' => 'defer']);
 
 $this->htmlElement('body')->appendAttribute('class', 'search-request browse');
 
@@ -39,9 +46,8 @@ $sortHeadings = [
 <ul class="search-request-list">
 <?php foreach ($searchRequests as $searchRequest): ?>
     <li class="search-request">
-        <h4><?= $searchRequest->comment() ?></h4>
-        <?= $hyperlink('Search again', $searchRequest->originalUrl()) ?>
-        <?= $hyperlink('Delete', $searchRequest->siteUrl()) ?>
+        <h4><?= $hyperlink($searchRequest->comment(), $searchRequest->originalUrl()) ?></h4>
+        <?= $hyperlink($translate('Delete'), $url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true), ['class' => 'search-history-delete']) ?>
     </li>
     <?php endforeach; ?>
 </ul>

@@ -9,6 +9,7 @@
         var saveSearchPopUpBackground = $('.popup-background');
         var saveSearchButton = $('.popup-search-save input[type=submit]');
         var saveSearchName = $('.popup-search-save input[type=text]');
+        var deleteSearchButton = $('.search-history-delete');
 
         function centerPopUpVertically(element) {
             var browserHeight = window.innerHeight || document.body.clientHeight;
@@ -90,6 +91,19 @@
                     openAdvancedSearchPopUp();
                 }
             }, 2000 );
+        });
+
+        // Delete search request.
+        deleteSearchButton.on('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+
+            $.ajax(deleteSearchButton.attr('href'))
+            .done(function(data) {
+                if (data.status === 'success') {
+                    $(deleteSearchButton).closest('.search-request').remove();
+                }
+            });
         });
 
     });
