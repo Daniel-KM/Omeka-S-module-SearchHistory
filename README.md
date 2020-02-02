@@ -77,7 +77,7 @@ Copyright
 This module was first developed for the [Fondation Maison de Salins].
 
 
-[SearchHistory]: https://github.com/Daniel-KM/Omeka-S-module-SearchHistory
+[Search History]: https://github.com/Daniel-KM/Omeka-S-module-SearchHistory
 [Omeka S]: https://omeka.org/s
 [Guest]: https://github.com/Daniel-KM/Omeka-S-module-Guest
 [Installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules

@@ -105,7 +105,6 @@ class LinkSearchHistory extends AbstractHelper
             return (bool) strlen($v);
         });
 
-
         return http_build_query($request);
     }
 
