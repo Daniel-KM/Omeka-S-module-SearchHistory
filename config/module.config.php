@@ -2,6 +2,16 @@
 namespace SearchHistory;
 
 return  [
+    'api_adapters' => [
+        'invokables' => [
+            'search_histories' => Api\Adapter\SearchHistoryAdapter::class,
+        ],
+    ],
+    'entity_manager' => [
+        'mapping_classes_paths' => [
+            dirname(__DIR__) . '/src/Entity',
+        ],
+    ],
     'translator' => [
         'translation_file_patterns' => [
             [
