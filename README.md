@@ -1,6 +1,10 @@
 Search History (module for Omeka S)
 ===================================
 
+> __New versions of this module and support for Omeka S version 3.0 and above
+> are available on [GitLab], which seems to respect users and privacy better
+> than the previous repository.__
+
 [Search History] is a module for [Omeka S] that allows user to save search and
 to callback it via the guest account.
 
@@ -87,4 +91,5 @@ This module was first developed for the [Fondation Maison de Salins].
 [FSF]: https://www.fsf.org
 [OSI]: http://opensource.org
 [Fondation Maison de Salins]: https://collections.maison-salins.fr
+[GitLab]: https://gitlab.com/Daniel-KM
 [Daniel-KM]: https://github.com/Daniel-KM "Daniel Berthereau"
