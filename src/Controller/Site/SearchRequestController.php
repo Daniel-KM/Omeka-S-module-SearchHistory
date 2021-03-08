@@ -140,7 +140,7 @@ class SearchRequestController extends AbstractActionController
     protected function cleanQuery()
     {
         $params = $this->params();
-        $query = ltrim($params->fromQuery('query'), '?');
+        $query = ltrim($params->fromQuery('query'), "? \t\n\r\0\x0B");
 
         // Clean query for better search.
         $request = [];
