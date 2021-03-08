@@ -110,7 +110,7 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
     public function originalUrl()
     {
         $engine = $this->engine();
-        if (!strlen($engine)) {
+        if (!strlen((string) $engine)) {
             return null;
         }
 
