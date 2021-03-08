@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace SearchHistory;
 
 if (!class_exists(\Generic\AbstractModule::class)) {
@@ -24,7 +24,7 @@ class Module extends AbstractModule
 
     protected $dependency = 'Guest';
 
-    public function onBootstrap(MvcEvent $event)
+    public function onBootstrap(MvcEvent $event): void
     {
         parent::onBootstrap($event);
 
@@ -43,7 +43,7 @@ class Module extends AbstractModule
         );
     }
 
-    public function attachListeners(SharedEventManagerInterface $sharedEventManager)
+    public function attachListeners(SharedEventManagerInterface $sharedEventManager): void
     {
         $sharedEventManager->attach(
             'Omeka\Controller\Site\ItemSet',
@@ -67,12 +67,12 @@ class Module extends AbstractModule
         );
     }
 
-    public function handleViewShowAfter(Event $event)
+    public function handleViewShowAfter(Event $event): void
     {
         echo $event->getTarget()->linkSearchHistory();
     }
 
-    public function handleGuestWidgets(Event $event)
+    public function handleGuestWidgets(Event $event): void
     {
         $helpers = $this->getServiceLocator()->get('ViewHelperManager');
         $translate = $helpers->get('translate');

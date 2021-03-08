@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SearchHistory\Api\Adapter;
 
@@ -36,7 +36,7 @@ class SearchRequestAdapter extends AbstractEntityAdapter
 
     public function hydrate(Request $request, EntityInterface $entity,
         ErrorStore $errorStore
-    ) {
+    ): void {
         /** @var \AccessResource\Entity\AccessRequest $entity */
         $data = $request->getContent();
         foreach ($data as $key => $value) {
@@ -58,7 +58,7 @@ class SearchRequestAdapter extends AbstractEntityAdapter
         $this->updateTimestamps($request, $entity);
     }
 
-    public function buildQuery(QueryBuilder $qb, array $query)
+    public function buildQuery(QueryBuilder $qb, array $query): void
     {
         $isOldOmeka = \Omeka\Module::VERSION < 2;
         $alias = $isOldOmeka ? $this->getEntityClass() : 'omeka_root';
