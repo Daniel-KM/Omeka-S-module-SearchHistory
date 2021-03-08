@@ -60,14 +60,12 @@ class SearchRequestAdapter extends AbstractEntityAdapter
 
     public function buildQuery(QueryBuilder $qb, array $query): void
     {
-        $isOldOmeka = \Omeka\Module::VERSION < 2;
-        $alias = $isOldOmeka ? $this->getEntityClass() : 'omeka_root';
         $expr = $qb->expr();
 
         if (isset($query['user_id'])) {
             $userAlias = $this->createAlias();
             $qb->innerJoin(
-                $alias . '.user',
+                'omeka_root.user',
                 $userAlias
             );
             $qb->andWhere($expr->eq(
@@ -79,7 +77,7 @@ class SearchRequestAdapter extends AbstractEntityAdapter
         if (isset($query['site_id'])) {
             $siteAlias = $this->createAlias();
             $qb->innerJoin(
-                $alias . '.site',
+                'omeka_root.site',
                 $siteAlias
             );
             if ($query['site_id']) {
