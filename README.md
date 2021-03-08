@@ -8,6 +8,10 @@ Search History (module for Omeka S)
 [Search History] is a module for [Omeka S] that allows user to save search and
 to callback it via the guest account.
 
+Note that a similar module exists: [Selection], that allows not only to select
+resources and to store them in selection sets, but to create dynamic selection
+with a query.
+
 
 Installation
 ------------
@@ -84,6 +88,7 @@ This module was first developed for the [Fondation Maison de Salins].
 [Search History]: https://gitlab.com/Daniel-KM/Omeka-S-module-SearchHistory
 [Omeka S]: https://omeka.org/s
 [Guest]: https://gitlab.com/Daniel-KM/Omeka-S-module-Guest
+[Selection]: https://gitlab.com/Daniel-KM/Omeka-S-module-Selection
 [Installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules
 [module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-SearchHistory/-/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
