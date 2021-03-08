@@ -56,7 +56,7 @@ return  [
             'site' => [
                 'child_routes' => [
                     'search-history' => [
-                        'type' => \Zend\Router\Http\Segment::class,
+                        'type' => \Laminas\Router\Http\Segment::class,
                         'options' => [
                             'route' => '/search-history[/:action]',
                             'constraints' => [
@@ -70,7 +70,7 @@ return  [
                         ],
                     ],
                     'search-history-id' => [
-                        'type' => \Zend\Router\Http\Segment::class,
+                        'type' => \Laminas\Router\Http\Segment::class,
                         'options' => [
                             'route' => '/search-history/:id[/:action]',
                             'constraints' => [
@@ -85,14 +85,14 @@ return  [
                         ],
                     ],
                     'guest' => [
-                        'type' => \Zend\Router\Http\Literal::class,
+                        'type' => \Laminas\Router\Http\Literal::class,
                         'options' => [
                             'route' => '/guest',
                         ],
                         'may_terminate' => true,
                         'child_routes' => [
                             'search-history' => [
-                                'type' => \Zend\Router\Http\Literal::class,
+                                'type' => \Laminas\Router\Http\Literal::class,
                                 'options' => [
                                     'route' => '/search-history',
                                     'defaults' => [

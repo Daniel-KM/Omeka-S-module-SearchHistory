@@ -2,7 +2,7 @@
 
 namespace SearchHistory\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class LinkSearchHistory extends AbstractHelper
 {
@@ -119,6 +119,6 @@ class LinkSearchHistory extends AbstractHelper
         $view = $this->getView();
         return isset($view->site)
             ? $view->site
-            : $view->getHelperPluginManager()->get('Zend\View\Helper\ViewModel')->getRoot()->getVariable('site');
+            : $view->getHelperPluginManager()->get('Laminas\View\Helper\ViewModel')->getRoot()->getVariable('site');
     }
 }

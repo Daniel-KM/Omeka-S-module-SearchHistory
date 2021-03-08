@@ -2,9 +2,9 @@
 
 namespace SearchHistory\Controller\Site;
 
-use Zend\Http\Response;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
+use Laminas\Http\Response;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 
 class SearchRequestController extends AbstractActionController
 {
