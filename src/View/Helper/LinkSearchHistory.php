@@ -103,7 +103,7 @@ class LinkSearchHistory extends AbstractHelper
         unset($request['limit']);
         $request = array_filter($request, function ($v) {
             // TODO Improve cleaning of empty sub-arrays in the query.
-            return (bool) is_array($v) ? !empty($v) : strlen($v);
+            return (bool) is_array($v) ? !empty($v) : strlen((string) $v);
         });
 
         return http_build_query($request);
