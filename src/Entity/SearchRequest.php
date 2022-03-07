@@ -3,7 +3,6 @@
 namespace SearchHistory\Entity;
 
 use DateTime;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Omeka\Entity\AbstractEntity;
 use Omeka\Entity\Site;
 use Omeka\Entity\User;
@@ -13,7 +12,6 @@ use Omeka\Entity\User;
  * @Table(
  *     name="search_request"
  * )
- * @HasLifecycleCallbacks
  */
 class SearchRequest extends AbstractEntity
 {
@@ -21,7 +19,9 @@ class SearchRequest extends AbstractEntity
      * @var int
      *
      * @Id
-     * @Column(type="integer")
+     * @Column(
+     *     type="integer"
+     * )
      * @GeneratedValue
      */
     protected $id;
@@ -33,8 +33,8 @@ class SearchRequest extends AbstractEntity
      *      targetEntity="\Omeka\Entity\User"
      * )
      * @JoinColumn(
-     *      nullable=false,
-     *      onDelete="CASCADE"
+     *     nullable=true,
+     *     onDelete="SET NULL"
      * )
      */
     protected $user;
@@ -58,7 +58,7 @@ class SearchRequest extends AbstractEntity
      * )
      * @JoinColumn(
      *      nullable=true,
-     *      onDelete="CASCADE"
+     *     onDelete="SET NULL"
      * )
      */
     protected $site;
@@ -87,14 +87,20 @@ class SearchRequest extends AbstractEntity
     /**
      * @var DateTime
      *
-     * @Column(type="datetime")
+     * @Column(
+     *      type="datetime",
+     *      nullable=false
+     * )
      */
     protected $created;
 
     /**
      * @var DateTime
      *
-     * @Column(type="datetime")
+     * @Column(
+     *      type="datetime",
+     *      nullable=true
+     * )
      */
     protected $modified;
 
@@ -103,138 +109,80 @@ class SearchRequest extends AbstractEntity
         return $this->id;
     }
 
-    /**
-     * @param User $user
-     * @return self
-     */
-    public function setUser(User $user)
+    public function setUser(?User $user): self
     {
         $this->user = $user;
         return $this;
     }
 
-    /**
-     * @return \Omeka\Entity\User
-     */
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    /**
-     * @param string $comment
-     * @return self
-     */
-    public function setComment($comment)
+    public function setComment(?string $comment): self
     {
         $this->comment = $comment;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getComment()
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    /**
-     * @param Site $site
-     * @return self
-     */
-    public function setSite(Site $site = null)
+    public function setSite(?Site $site = null): self
     {
         $this->site = $site;
         return $this;
     }
 
-    /**
-     * @return \Omeka\Entity\Site
-     */
-    public function getSite()
+    public function getSite(): ?Site
     {
         return $this->site;
     }
 
-    /**
-     * @param string $engine
-     * @return self
-     */
-    public function setEngine($engine)
+    public function setEngine(?string $engine): self
     {
         $this->engine = $engine;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getEngine()
+    public function getEngine(): ?string
     {
         return $this->engine;
     }
 
-    /**
-     * @param string $query
-     * @return self
-     */
-    public function setQuery($query)
+    public function setQuery(?string $query): self
     {
         $this->query = $query;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getQuery()
+    public function getQuery(): ?string
     {
         return $this->query;
     }
 
-    /**
-     * @param DateTime $created
-     * @return self
-     */
-    public function setCreated(DateTime $created)
+    public function setCreated(DateTime $created): self
     {
         $this->created = $created;
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getCreated()
+    public function getCreated(): DateTime
     {
         return $this->created;
     }
 
-    /**
-     * @param DateTime $modified
-     * @return self
-     */
-    public function setModified(DateTime $modified)
+    public function setModified(?DateTime $modified): self
     {
         $this->modified = $modified;
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getModified()
+    public function getModified(): ?DateTime
     {
         return $this->modified;
-    }
-
-    /**
-     * @PrePersist
-     */
-    public function prePersist(LifecycleEventArgs $eventArgs)
-    {
-        $this->created = new DateTime('now');
-        return $this;
     }
 }

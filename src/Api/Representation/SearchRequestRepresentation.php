@@ -3,12 +3,14 @@
 namespace SearchHistory\Api\Representation;
 
 use Omeka\Api\Representation\AbstractEntityRepresentation;
+use Omeka\Api\Representation\SiteRepresentation;
+use Omeka\Api\Representation\UserRepresentation;
 
 class SearchRequestRepresentation extends AbstractEntityRepresentation
 {
     public function getControllerName()
     {
-        return \SearchHistory\Controller\Admin\SearchRequestController::class;
+        return 'search-request';
     }
 
     public function getJsonLdType()
@@ -46,27 +48,20 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
         ];
     }
 
-    /**
-     * @return \Omeka\Api\Representation\UserRepresentation
-     */
-    public function user()
+    public function user(): ?UserRepresentation
     {
         $user = $this->resource->getUser();
-        return $this->getAdapter('users')->getRepresentation($user);
+        return $user
+            ?$this->getAdapter('users')->getRepresentation($user)
+            : null;
     }
 
-    /**
-     * @return string
-     */
-    public function comment()
+    public function comment(): ?string
     {
         return $this->resource->getComment();
     }
 
-    /**
-     * @return \Omeka\Api\Representation\SiteRepresentation|null
-     */
-    public function site()
+    public function site(): ?SiteRepresentation
     {
         $site = $this->resource->getSite();
         return $site
@@ -74,10 +69,7 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
             : null;
     }
 
-    /**
-     * @return string
-     */
-    public function engine()
+    public function engine(): ?string
     {
         $engine = $this->resource->getEngine();
         // Manage the module Search: get the string from the id of the page.
@@ -92,10 +84,7 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
         return $engine;
     }
 
-    /**
-     * @return string
-     */
-    public function query()
+    public function query(): ?string
     {
         return $this->resource->getQuery();
     }
@@ -104,10 +93,8 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
      * Get the url of the search.
      *
      * The original search engine may be unavailable.
-     *
-     * @return string|null
      */
-    public function originalUrl()
+    public function originalUrl(): ?string
     {
         $engine = $this->engine();
         if (!strlen((string) $engine)) {
@@ -123,18 +110,12 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
             . '?' . $this->query();
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function created()
+    public function created(): \DateTime
     {
         return $this->resource->getCreated();
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function modified()
+    public function modified(): ?\DateTime
     {
         return $this->resource->getModified();
     }
@@ -158,11 +139,8 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
 
     /**
      * Check if a module is active.
-     *
-     * @param string $moduleClass
-     * @return bool
      */
-    protected function isModuleActive($moduleClass)
+    protected function isModuleActive(string $moduleClass): bool
     {
         $services = $this->getServiceLocator();
         /** @var \Omeka\Module\Manager $moduleManager */

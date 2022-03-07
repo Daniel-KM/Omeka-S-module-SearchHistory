@@ -2,7 +2,7 @@
 
 namespace SearchHistory\Api\Adapter;
 
-use Doctrine\Common\Inflector\Inflector;
+use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\QueryBuilder;
 use Omeka\Api\Adapter\AbstractEntityAdapter;
 use Omeka\Api\Request;
@@ -39,9 +39,10 @@ class SearchRequestAdapter extends AbstractEntityAdapter
     ): void {
         /** @var \AccessResource\Entity\AccessRequest $entity */
         $data = $request->getContent();
+        $inflector = InflectorFactory::create()->build();
         foreach ($data as $key => $value) {
             $key = str_replace(['o:', 'o-module-search-history:'], '', $key);
-            $method = 'set' . ucfirst(Inflector::camelize($key));
+            $method = 'set' . ucfirst($inflector->camelize($key));
             if (!method_exists($entity, $method)) {
                 continue;
             }

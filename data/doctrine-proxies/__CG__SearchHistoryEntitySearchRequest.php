@@ -26,25 +26,27 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * @var boolean flag indicating if this object was already initialized
      *
-     * @see \Doctrine\Common\Persistence\Proxy::__isInitialized
+     * @see \Doctrine\Persistence\Proxy::__isInitialized
      */
     public $__isInitialized__ = false;
 
     /**
-     * @var array properties to be lazy loaded, with keys being the property
-     *            names and values being their default values
+     * @var array<string, null> properties to be lazy loaded, indexed by property name
+     */
+    public static $lazyPropertiesNames = array (
+);
+
+    /**
+     * @var array<string, mixed> default values of properties to be lazy loaded, with keys being the property names
      *
      * @see \Doctrine\Common\Proxy\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = [];
+    public static $lazyPropertiesDefaults = array (
+);
 
 
 
-    /**
-     * @param \Closure $initializer
-     * @param \Closure $cloner
-     */
-    public function __construct($initializer = null, $cloner = null)
+    public function __construct(?\Closure $initializer = null, ?\Closure $cloner = null)
     {
 
         $this->__initializer__ = $initializer;
@@ -82,7 +84,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
 
                 $existingProperties = get_object_vars($proxy);
 
-                foreach ($proxy->__getLazyProperties() as $property => $defaultValue) {
+                foreach ($proxy::$lazyPropertiesDefaults as $property => $defaultValue) {
                     if ( ! array_key_exists($property, $existingProperties)) {
                         $proxy->$property = $defaultValue;
                     }
@@ -165,6 +167,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      * @internal generated method: use only when explicitly handling proxy specific loading logic
+     * @deprecated no longer in use - generated code now relies on internal components rather than generated public API
      * @static
      */
     public function __getLazyProperties()
@@ -191,7 +194,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function setUser(\Omeka\Entity\User $user)
+    public function setUser(?\Omeka\Entity\User $user): \SearchHistory\Entity\SearchRequest
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUser', [$user]);
@@ -202,7 +205,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function getUser()
+    public function getUser(): ?\Omeka\Entity\User
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUser', []);
@@ -213,7 +216,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function setComment($comment)
+    public function setComment(?string $comment): \SearchHistory\Entity\SearchRequest
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setComment', [$comment]);
@@ -224,7 +227,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function getComment()
+    public function getComment(): ?string
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getComment', []);
@@ -235,7 +238,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function setSite(\Omeka\Entity\Site $site = NULL)
+    public function setSite(\Omeka\Entity\Site $site = NULL): \SearchHistory\Entity\SearchRequest
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSite', [$site]);
@@ -246,7 +249,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function getSite()
+    public function getSite(): ?\Omeka\Entity\Site
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSite', []);
@@ -257,7 +260,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function setEngine($engine)
+    public function setEngine(?string $engine): \SearchHistory\Entity\SearchRequest
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEngine', [$engine]);
@@ -268,7 +271,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function getEngine()
+    public function getEngine(): ?string
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEngine', []);
@@ -279,7 +282,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function setQuery($query)
+    public function setQuery(?string $query): \SearchHistory\Entity\SearchRequest
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setQuery', [$query]);
@@ -290,7 +293,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function getQuery()
+    public function getQuery(): ?string
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getQuery', []);
@@ -301,7 +304,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function setCreated(\DateTime $created)
+    public function setCreated(\DateTime $created): \SearchHistory\Entity\SearchRequest
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreated', [$created]);
@@ -312,7 +315,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function getCreated()
+    public function getCreated(): \DateTime
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreated', []);
@@ -323,7 +326,7 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function setModified(\DateTime $modified)
+    public function setModified(?\DateTime $modified): \SearchHistory\Entity\SearchRequest
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModified', [$modified]);
@@ -334,23 +337,12 @@ class SearchRequest extends \SearchHistory\Entity\SearchRequest implements \Doct
     /**
      * {@inheritDoc}
      */
-    public function getModified()
+    public function getModified(): ?\DateTime
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModified', []);
 
         return parent::getModified();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function prePersist(\Doctrine\ORM\Event\LifecycleEventArgs $eventArgs)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'prePersist', [$eventArgs]);
-
-        return parent::prePersist($eventArgs);
     }
 
     /**
