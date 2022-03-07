@@ -155,7 +155,7 @@ class SearchRequestController extends AbstractActionController
             return (bool) is_array($v) ? !empty($v) : strlen($v);
         });
 
-        return http_build_query($request);
+        return http_build_query($request, '', '&', PHP_QUERY_RFC3986);
     }
 
     protected function jsonErrorNotFound()
