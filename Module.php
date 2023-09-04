@@ -23,7 +23,9 @@ class Module extends AbstractModule
 {
     const NAMESPACE = __NAMESPACE__;
 
-    protected $dependency = 'Guest';
+    protected $dependencies = [
+        'Guest',
+    ];
 
     public function onBootstrap(MvcEvent $event): void
     {
