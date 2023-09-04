@@ -13,8 +13,21 @@ class SearchRequestAdapter extends AbstractEntityAdapter
 {
     protected $sortFields = [
         'id' => 'id',
+        'site_id' => 'site',
+        'user_id' => 'user',
         'comment' => 'comment',
         'engine' => 'engine',
+        'created' => 'created',
+        'modified' => 'modified',
+    ];
+
+    protected $scalarFields = [
+        'id' => 'id',
+        'user' => 'user',
+        'site' => 'site',
+        'comment' => 'comment',
+        'engine' => 'engine',
+        'query' => 'query',
         'created' => 'created',
         'modified' => 'modified',
     ];
@@ -37,7 +50,7 @@ class SearchRequestAdapter extends AbstractEntityAdapter
     public function hydrate(Request $request, EntityInterface $entity,
         ErrorStore $errorStore
     ): void {
-        /** @var \AccessResource\Entity\AccessRequest $entity */
+        /** @var \SearchHistory\Entity\SearchRequest $entity */
         $data = $request->getContent();
         $inflector = InflectorFactory::create()->build();
         foreach ($data as $key => $value) {
