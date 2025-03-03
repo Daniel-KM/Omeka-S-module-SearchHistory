@@ -1,185 +1,40 @@
-@charset "UTF-8";
+/* Search History */
 
-.hidden {
-    display: none;
-}
+@media all {
+    [hidden],
+    .hidden {
+        display: none;
+    }
 
-.popup {
-    display: none;
-}
+    form#search-history-save .field {
+        display: block;
+    }
+    form#search-history-save .field .field-meta,
+    form#search-history-save .field .inputs {
+	   width: initial;
+	   padding-left: initial;
+    }
+    form#search-history-save .field .inputs input{
+       width: 100%;
+    }
 
-.popup.is-opening {
-    display: block;
-}
+    .dialog-header,
+    .dialog-contents,
+    .dialog-bottom {
+        margin-bottom: 6px;
+    }
 
-.popup.popup-search-save {
-}
+    .dialog-header {
+        display: flex;
+        justify-content: flex-end;
+    }
 
-.popup-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 5;
-
-    display: block;
-    width: 100%;
-    height: 100%;
-    pointer-events: inherit;
-
-    background-color: rgba(36, 36, 36, 0);
-
-    -webkit-transition: background 0.3s;
-    transition: background 0.3s;
-}
-
-.popup.is-opening .popup-background {
-    background-color: rgba(36, 36, 36, 0.9);
-}
-
-.popup-panel {
-    position: relative;
-    width: 400px;
-    background-color: #FFFFFF;
-    margin: 100px auto;
-    padding-bottom: 42px;
-}
-
-.popup-header {
-    padding: 20px;
-    color: #FFFFFF;
-    text-align: center;
-}
-
-.popup-header.align-left {
-    text-align: left;
-}
-
-.popup-header-close-button {
-    position: absolute;
-    top:20px;
-    right:20px;
-
-    display:block;
-    width:30px;
-    height: 30px;
-    background: url(../img/croix-rouge.svg) no-repeat;
-}
-
-.popup-contents,
-.popup-message {
-    color: #4A4A4A;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    line-height: 15px;
-}
-
-.popup-message,
-.popup.with-message .popup-contents,
-.popup.with-message .popup-footer {
-    display: none;
-}
-
-.popup.with-message .popup-message {
-    display: block;
-    text-align: center;
-}
-
-.popup-message a {
-    text-decoration: none;
-    color:#F14737;
-    font-weight: bold;
-}
-
-.popup-contents {
-    padding: 30px 70px 0;
-}
-
-.popup-message {
-    padding: 30px 30px 0;
-}
-
-.popup-footer {
-    padding: 0 70px;
-}
-
-.popup-contents input[type=password],
-.popup-contents input[type=text] {
-    box-sizing: border-box;
-    width: 100%;
-    margin: 12px 0 14px 0;
-    padding:0 20px;
-    border: 1px solid #228D8A;
-    background-color: #FFFFFF;
-    line-height: 32px;
-}
-
-.popup-contents input[type="text"]::placeholder {
-    line-height: 32px;
-}
-
-.popup-footer input[type=submit] {
-    width: 100%;
-}
-
-.popup-footer a {
-    display: inline-block;
-    box-sizing: border-box;
-    padding: 10px 12px;
-    margin-top: 20px;
-    width: 100%;
-
-    font-family: 'Quicksand', sans-serif;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 21px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-
-.popup-footer a {
-    background-color: #228D8A;
-    border: 2px solid #228D8A;
-    color:#FFF;
-    margin-right: 2%;
-}
-
-.popup-footer a:hover {
-    background-color: #F14737;
-    border: 2px solid #F14737;
-}
-
-.popup-footer a.outlined {
-    border: 2px solid #228D8A;
-    color: #228D8A;
-    background-color: transparent;
-}
-
-.popup-footer a.outlined:hover {
-    border: 2px solid #F14737;
-    color: #F14737;
-}
-
-.popup-footer:first-child ~ .popup-footer a:last-child {
-    background-color: #F14737;
-    border: 2px solid #F14737;
-    color:#FFF;
-}
-
-.popup-footer:first-child ~ .popup-footer a:last-child:hover {
-    background-color: #228D8A;
-    border: 2px solid #228D8A;
-}
-
-.popup-footer:first-child ~ .popup-footer a.outlined:last-child {
-    border: 2px solid #228D8A;
-    color: #228D8A;
-    background-color: transparent;
-}
-
-.popup-footer:first-child ~ .popup-footer a.outlined:last-child:hover,
-.popup-footer a.outlined:last-child:hover {
-    border: 2px solid #F14737;
-    color: #F14737;
+    .dialog-header-close-button {
+        display: block;
+        margin-left: auto;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+    }
 }

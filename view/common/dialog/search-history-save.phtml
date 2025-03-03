@@ -1,0 +1,52 @@
+<?php
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\SiteRepresentation $site
+ * @var \SearchHistory\Api\Representation\SearchRequestRepresentation $searchRequest
+ * @var string $engine
+ * @var string $query
+ */
+
+$plugins = $this->getHelperPluginManager();
+$url = $plugins->get('url');
+$escape = $plugins->get('escapeHtml');
+$assetUrl = $plugins->get('assetUrl');
+$translate = $plugins->get('translate');
+$escapeAttr = $plugins->get('escapeHtmlAttr');
+
+$this->headLink()
+    ->appendStylesheet($assetUrl('css/search-history.css', 'SearchHistory'));
+$this->headScript()
+    ->appendFile($assetUrl('js/search-history.js', 'SearchHistory'), 'text/javascript', ['defer' => 'defer']);
+?>
+
+<dialog id="search-history" class="dialog popup popup-dialog dialog-search-save">
+    <div class="dialog-background">
+        <div class="dialog-panel">
+            <div class="dialog-header">
+                <button type="button" class="dialog-header-close-button" title="<?= $translate('Close') ?>" autofocus="autofocus">
+                    <span class="dialog-close">🗙</span>
+                </button>
+                <div class="dialog-messages">
+                </div>
+            </div>
+            <div class="dialog-contents">
+                <form id="search-history-save" action="<?= $url('site/search-history', ['action' => 'add'], true) ?>" method="post">
+                    <div class="field">
+                        <div class="field-meta">
+                            <label for="comment"><?= $escape($translate('Give a name to your search')) ?></label>
+                        </div>
+                        <div class="inputs">
+                            <input name="comment" type="text" required="required" value=""/>
+                        </div>
+                    </div>
+                    <input name="engine" type="hidden" value="<?= $escapeAttr($engine) ?>"/>
+                    <input name="query" type="hidden" value=""/>
+                </form>
+            </div>
+            <div class="dialog-footer">
+                <button type="submit" class="button" form="search-history-save"><?= $translate('Save') ?></button>
+            </div>
+        </div>
+    </div>
+</dialog>

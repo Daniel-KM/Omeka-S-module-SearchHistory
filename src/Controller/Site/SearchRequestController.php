@@ -78,19 +78,29 @@ class SearchRequestController extends AbstractActionController
 
     public function deleteAction()
     {
+        $returnJson = $this->getRequest()->isXmlHttpRequest();
+
         $user = $this->identity();
         if (!$user) {
-            return $this->jSend(JSend::FAIL, [
-                'user' => $this->translate('Access forbidden'), // @translate
-            ], null, Response::STATUS_CODE_403);
+            if ($returnJson) {
+                return $this->jSend(JSend::FAIL, [
+                    'user' => $this->translate('Access forbidden'), // @translate
+                ], null, Response::STATUS_CODE_403);
+            }
+            $this->messenger()->addWarning($this->translate('Access forbidden')); // @translate
+            return $this->redirect()->toRoute('site', ['action' => 'index'], true);
         }
 
         $params = $this->params();
         $id = $params->fromRoute('id') ?: $params->fromQuery('id');
         if (!$id) {
-            return $this->jSend(JSend::FAIL, [
-                'search_request' => $this->translate('Not found'), // @translate
-            ], null, Response::STATUS_CODE_404);
+            if ($returnJson) {
+                return $this->jSend(JSend::FAIL, [
+                    'search_request' => $this->translate('Not found'), // @translate
+                ], null, Response::STATUS_CODE_404);
+            }
+            $this->messenger()->addWarning($this->translate('Not found')); // @translate
+            return $this->redirect()->toRoute('site/guest/search-history', ['action' => 'show'], true);
         }
 
         $isMultiple = is_array($id);
@@ -115,8 +125,12 @@ class SearchRequestController extends AbstractActionController
             $results[$id] = null;
         }
 
-        return $this->jSend(JSend::SUCCESS, [
-            'search_requests' => $results,
-        ]);
+        if ($returnJson) {
+            return $this->jSend(JSend::SUCCESS, [
+                'search_requests' => $results,
+            ]);
+        }
+
+        return $this->redirect()->toRoute('site/guest/search-history', ['action' => 'show'], true);
     }
 }

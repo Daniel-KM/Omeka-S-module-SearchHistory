@@ -7,13 +7,16 @@
  * @var string $query
  */
 
-if (!$engine):
+if (!$engine) {
     return;
-endif;
+}
 
-$translate = $this->plugin('translate');
-$url = $this->plugin('url');
-$assetUrl = $this->plugin('assetUrl');
+$plugins = $this->getHelperPluginManager();
+$url = $plugins->get('url');
+$partial = $plugins->get('partial');
+$assetUrl = $plugins->get('assetUrl');
+$translate = $plugins->get('translate');
+$escapeAttr = $plugins->get('escapeHtmlAttr');
 
 $this->headLink()
     ->appendStylesheet($assetUrl('css/search-history.css', 'SearchHistory'));
@@ -21,23 +24,13 @@ $this->headScript()
     ->appendFile($assetUrl('js/search-history.js', 'SearchHistory'), 'text/javascript', ['defer' => 'defer']);
 ?>
 
-<a class="search-history delete search-history-delete search-request delete-search-button<?= $searchRequest ? '' : ' hidden' ?>" href="<?= $searchRequest ? $url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true) : '' ?>"><?= $translate('Delete saved search') ?></a>
-<a class="search-history add save-filters save-search-button<?= $searchRequest ? ' hidden' : ''?>" data-engine="<?= $engine ?>" href="<?= $url('site/search-history', ['action' => 'add'], true) ?>"><?= $translate('Save current search') ?></a>
-
-<div class="popup popup-search-save">
-    <div class="popup-background">
-        <div class="popup-panel">
-            <div class="popup-header">
-                <a href="#" class="popup-header-close-button"></a>
-            </div>
-            <div class="popup-contents">
-                <p><?= $translate('Give a name to your search') ?></p>
-                <input name="search-request-comment" type="text" required="required"/>
-            </div>
-            <div class="popup-message"></div>
-            <div class="popup-footer">
-                <input type="submit" value="<?= $translate('Save') ?>" />
-            </div>
-        </div>
-    </div>
+<div class="search-history search-history-actions">
+    <button type="button" class="button delete search-history-button search-history-delete <?= $searchRequest ? '' : ' hidden' ?>" data-url="<?= $searchRequest ? $url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true) : '' ?>" data-msg-success="<?= $escapeAttr($translate('Search deleted from your account.')) ?>">
+        <span class="search-history-icon"><?= $translate('Delete saved search') ?></span>
+    </button>
+    <button type="button" class="button add search-history-button search-history-save<?= $searchRequest ? ' hidden' : '' ?>" data-msg-success="<?= $escapeAttr($translate('Search saved in your account.')) ?>" data-msg-no-query="<?= $escapeAttr('The current search has no query.') ?>">
+        <span class="search-history-icon"><?= $translate('Save current search') ?></span>
+    </button>
 </div>
+
+<?= $partial('common/dialog/search-history-save') ?>
