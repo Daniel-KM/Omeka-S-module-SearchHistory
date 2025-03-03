@@ -55,7 +55,7 @@ class SearchRequestController extends AbstractActionController
 
         $searchRequest = [
             'o:user_id' => $user->getId(),
-            'o-module-search-history:comment' => $comment,
+            'o:comment' => $comment,
             'o:site_id' => $siteId,
             'o:engine' => $engine,
             'o:query' => $query,

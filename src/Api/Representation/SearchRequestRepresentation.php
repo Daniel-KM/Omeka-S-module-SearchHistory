@@ -15,7 +15,7 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
 
     public function getJsonLdType()
     {
-        return 'o-module-search-history:SearchRequest';
+        return 'o:SearchRequest';
     }
 
     public function getJsonLd()
@@ -39,7 +39,7 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
         return [
             'o:id' => $this->id(),
             'o:user' => $user ? $user->getReference() : null,
-            'o-module-search-history:comment' => $this->comment(),
+            'o:comment' => $this->comment(),
             'o:site' => $site ? $site->getReference() : null,
             'o:engine' => $this->engine(),
             'o:query' => $this->query(),
