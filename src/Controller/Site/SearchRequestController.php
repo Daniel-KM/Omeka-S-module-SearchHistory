@@ -2,44 +2,33 @@
 
 namespace SearchHistory\Controller\Site;
 
-use Laminas\Http\Response;
+use Common\Mvc\Controller\Plugin\JSend;
+use Laminas\Http\PhpEnvironment\Response;
 use Laminas\Mvc\Controller\AbstractActionController;
-use Laminas\View\Model\JsonModel;
 
 class SearchRequestController extends AbstractActionController
 {
     public function addAction()
     {
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            return $this->jsonErrorNotFound();
-        }
-
         $user = $this->identity();
         if (!$user) {
-            return new JsonModel([
-                'status' => 'error',
-                'message' => $this->translate('Access forbidden'), // @translate
-            ]);
+            return $this->jSend(JSend::FAIL, [
+                'user' => $this->translate('Access forbidden'), // @translate
+            ], null, Response::STATUS_CODE_403);
         }
 
         $params = $this->params();
         $query = $this->cleanQuery();
         if (!$query) {
-            return new JsonModel([
-                'status' => 'fail',
-                'data' => [
-                    'query' => $this->translate('A query is required'), // @translate
-                ],
+            return $this->jSend(JSend::FAIL, [
+                'query' => $this->translate('A query is required'), // @translate
             ]);
         }
 
-        $engine = $params->fromQuery('engine');
+        $engine = $params->fromPost('engine');
         if (!strlen($engine)) {
-            return new JsonModel([
-                'status' => 'fail',
-                'data' => [
-                    'engine' => $this->translate('The path of the engine is required'), // @translate
-                ],
+            return $this->jSend(JSend::FAIL, [
+                'engine' => $this->translate('The path of the engine is required'), // @translate
             ]);
         }
 
@@ -48,7 +37,7 @@ class SearchRequestController extends AbstractActionController
 
         $api = $this->api();
 
-        $comment = $params->fromQuery('comment');
+        $comment = trim((string) $params->fromPost('comment'));
         if (empty($comment)) {
             $comment = (new \DateTime())->format('Y-m-d H:i:s');
         }
@@ -63,41 +52,32 @@ class SearchRequestController extends AbstractActionController
 
         $response = $api->create('search_requests', $searchRequest);
         if (!$response) {
-            return new JsonModel([
-                'status' => 'error',
-                'message' => $this->translate('Unable to save.'), // @translate
-            ]);
+            return $this->jSend(JSend::ERROR, [], $this->translate('Unable to save.')); // @translate
         }
 
         $searchRequest = $response->getContent();
 
-        return new JsonModel([
-            'status' => 'success',
-            'data' => [
-                'search_request' => $searchRequest,
-                'url_delete' => $this->url()->fromRoute('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true),
-            ],
+        return $this->jSend(JSend::SUCCESS, [
+            'search_request' => $searchRequest,
+            'url_delete' => $this->url()->fromRoute('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true),
         ]);
     }
 
     public function deleteAction()
     {
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            return $this->jsonErrorNotFound();
-        }
-
         $user = $this->identity();
         if (!$user) {
-            return new JsonModel([
-                'status' => 'error',
-                'message' => $this->translate('Access forbidden'), // @translate
-            ]);
+            return $this->jSend(JSend::FAIL, [
+                'user' => $this->translate('Access forbidden'), // @translate
+            ], null, Response::STATUS_CODE_403);
         }
 
         $params = $this->params();
         $id = $params->fromRoute('id') ?: $params->fromQuery('id');
         if (!$id) {
-            return $this->jsonErrorNotFound();
+            return $this->jSend(JSend::FAIL, [
+                'search_request' => $this->translate('Not found'), // @translate
+            ], null, Response::STATUS_CODE_404);
         }
 
         $isMultiple = is_array($id);
@@ -122,11 +102,8 @@ class SearchRequestController extends AbstractActionController
             $results[$id] = null;
         }
 
-        return new JsonModel([
-            'status' => 'success',
-            'data' => [
-                'search_requests' => $results,
-            ],
+        return $this->jSend(JSend::SUCCESS, [
+            'search_requests' => $results,
         ]);
     }
 
@@ -140,7 +117,7 @@ class SearchRequestController extends AbstractActionController
     protected function cleanQuery()
     {
         $params = $this->params();
-        $query = ltrim($params->fromQuery('query'), "? \t\n\r\0\x0B");
+        $query = ltrim($params->fromPost('query'), "? \t\n\r\0\x0B");
 
         // Clean query for better search.
         $request = [];
@@ -156,15 +133,5 @@ class SearchRequestController extends AbstractActionController
         });
 
         return http_build_query($request, '', '&', PHP_QUERY_RFC3986);
-    }
-
-    protected function jsonErrorNotFound()
-    {
-        $response = $this->getResponse();
-        $response->setStatusCode(Response::STATUS_CODE_404);
-        return new JsonModel([
-            'status' => 'error',
-            'message' => $this->translate('Not found'), // @translate
-        ]);
     }
 }
