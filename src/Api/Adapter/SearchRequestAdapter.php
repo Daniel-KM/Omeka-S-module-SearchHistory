@@ -177,7 +177,6 @@ class SearchRequestAdapter extends AbstractEntityAdapter
         };
         $kSortRecursive($query);
 
-        // TODO Use urldecode/rawurldecode?
-        return http_build_query($query, '', '&', PHP_QUERY_RFC3986);
+        return urldecode(http_build_query($query, '', '&', PHP_QUERY_RFC3986));
     }
 }
