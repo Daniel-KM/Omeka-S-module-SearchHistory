@@ -104,6 +104,17 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
         $basePath = $this->getServiceLocator()->get('ViewHelperManager')->get('basePath');
         $site = $this->site();
 
+        // A numeric engine comes from old modules or from module Search.
+        if (is_numeric($engine)
+            && class_exists('Search\Module', false)
+        ) {
+            $api = $this->getServiceLocator()->get('Omeka\ApiManager');
+            try {
+                $engine = $api->read('search_pages', $engine)->getContent()->path();
+            } catch (\Exception $e) {
+            }
+        }
+
         return $basePath()
             . ($site ? '/s/' . $site->slug() : '/admin')
             . '/' . $engine
