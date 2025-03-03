@@ -7,13 +7,25 @@ use Laminas\View\Helper\AbstractHelper;
 class SearchHistoryLink extends AbstractHelper
 {
     /**
+     * The default partial view script.
+     */
+    const PARTIAL_NAME = 'common/helper/search-history-button';
+
+    /**
      * Get the link to the search history button (to save or to delete).
      *
-     * @return string
+     * @param array $options Supported options:
+     * - template (string)
      */
-    public function __invoke()
+    public function __invoke(array $options = []): string
     {
         $view = $this->getView();
+
+        $defaultOptions = [
+            'template' => null,
+        ];
+
+        $options += $defaultOptions;
 
         $site = $this->currentSite();
         $user = $view->identity();
@@ -39,7 +51,9 @@ class SearchHistoryLink extends AbstractHelper
             }
         }
 
-        return $view->partial('common/helper/search-history-button', [
+        $template = $options['template'] ?? self::PARTIAL_NAME;
+
+        return $view->partial($template, [
             'site' => $site,
             'engine' => $engine,
             'query' => $query,
@@ -78,7 +92,7 @@ class SearchHistoryLink extends AbstractHelper
             case \Search\Controller\IndexController::class:
                 $engine = $params->fromRoute('id');
                 break;
-                // TODO Manage forms on standard pages (blocks).
+            // TODO Manage forms on standard pages (blocks).
             default:
                 $engine = null;
                 break;
