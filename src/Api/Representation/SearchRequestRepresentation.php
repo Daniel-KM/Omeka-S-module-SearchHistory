@@ -52,7 +52,7 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
     {
         $user = $this->resource->getUser();
         return $user
-            ?$this->getAdapter('users')->getRepresentation($user)
+            ? $this->getAdapter('users')->getRepresentation($user)
             : null;
     }
 

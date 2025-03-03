@@ -24,9 +24,33 @@ class Module extends AbstractModule
 
     const NAMESPACE = __NAMESPACE__;
 
+    /**
+     * @todo Remove dependency to guest. See Selection.
+     */
     protected $dependencies = [
         'Guest',
     ];
+
+    public function onBootstrap(MvcEvent $event): void
+    {
+        parent::onBootstrap($event);
+
+        /** @var \Omeka\Permissions\Acl $acl */
+        $acl = $this->getServiceLocator()->get('Omeka\Acl');
+
+        $roles = $acl->getRoles();
+
+        $acl
+            ->allow(
+                $roles,
+                [
+                    Entity\SearchRequest::class,
+                    Api\Adapter\SearchRequestAdapter::class,
+                    'SearchHistory\Controller\Site\SearchRequest',
+                    'SearchHistory\Controller\Site\GuestBoard',
+                ]
+        );
+    }
 
     protected function preInstall(): void
     {
@@ -43,41 +67,22 @@ class Module extends AbstractModule
         }
     }
 
-    public function onBootstrap(MvcEvent $event): void
-    {
-        parent::onBootstrap($event);
-
-        $acl = $this->getServiceLocator()->get('Omeka\Acl');
-
-        $roles = $acl->getRoles();
-        $acl
-            ->allow(
-                $roles,
-                [
-                    Entity\SearchRequest::class,
-                    Api\Adapter\SearchRequestAdapter::class,
-                    'SearchHistory\Controller\Site\SearchRequest',
-                    'SearchHistory\Controller\Site\GuestBoard',
-                ]
-        );
-    }
-
     public function attachListeners(SharedEventManagerInterface $sharedEventManager): void
     {
         $sharedEventManager->attach(
             'Omeka\Controller\Site\ItemSet',
             'view.browse.after',
-            [$this, 'handleViewShowAfter']
+            [$this, 'handleViewBrowseAfter']
         );
         $sharedEventManager->attach(
             'Omeka\Controller\Site\Item',
             'view.browse.after',
-            [$this, 'handleViewShowAfter']
+            [$this, 'handleViewBrowseAfter']
         );
         $sharedEventManager->attach(
             'Omeka\Controller\Site\Media',
             'view.browse.after',
-            [$this, 'handleViewShowAfter']
+            [$this, 'handleViewBrowseAfter']
         );
         $sharedEventManager->attach(
             \Guest\Controller\Site\GuestController::class,
@@ -86,7 +91,7 @@ class Module extends AbstractModule
         );
     }
 
-    public function handleViewShowAfter(Event $event): void
+    public function handleViewBrowseAfter(Event $event): void
     {
         echo $event->getTarget()->linkSearchHistory();
     }
@@ -94,8 +99,8 @@ class Module extends AbstractModule
     public function handleGuestWidgets(Event $event): void
     {
         $helpers = $this->getServiceLocator()->get('ViewHelperManager');
-        $translate = $helpers->get('translate');
         $partial = $helpers->get('partial');
+        $translate = $helpers->get('translate');
 
         $widget = [];
         $widget['label'] = $translate('Search History'); // @translate
