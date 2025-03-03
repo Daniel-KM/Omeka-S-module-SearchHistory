@@ -105,5 +105,19 @@ class SearchRequestAdapter extends AbstractEntityAdapter
                 $qb->andWhere($expr->isNull($siteAlias . '.id'));
             }
         }
+
+        if (isset($query['engine']) && $query['engine'] !== '') {
+            $qb->andWhere($expr->eq(
+                'omeka_root.engine',
+                $this->createNamedParameter($qb, $query['engine'])
+            ));
+        }
+
+        if (isset($query['query']) && $query['query'] !== '') {
+            $qb->andWhere($expr->eq(
+                'omeka_root.query',
+                $this->createNamedParameter($qb, $query['query'])
+            ));
+        }
     }
 }
