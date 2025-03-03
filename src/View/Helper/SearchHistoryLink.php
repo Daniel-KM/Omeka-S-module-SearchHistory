@@ -72,6 +72,9 @@ class SearchHistoryLink extends AbstractHelper
             case 'media':
                 $engine = 'media';
                 break;
+            case \AdvancedSearch\Controller\SearchController::class:
+                $engine = $params->fromRoute('search-slug');
+                break;
             case \Search\Controller\IndexController::class:
                 $engine = $params->fromRoute('id');
                 break;
