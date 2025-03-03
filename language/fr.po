@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-07 00:00+0000\n"
-"PO-Revision-Date: 2022-03-07 00:00+0000\n"
+"POT-Creation-Date: 2025-03-03 00:00+0000\n"
+"PO-Revision-Date: 2025-03-03 00:00+0000\n"
 "Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -15,22 +15,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
-#: Module.php:83 view/guest/site/guest/search-history.phtml:33
+#: data/scripts/upgrade.php:34 Module.php:63
+#, php-format
+msgid "The module %1$s should be upgraded to version %2$s or later."
+msgstr "Le module %1$s doit être mis à niveau à la version %2$s ou supérieure."
+
+#: Module.php:106 view/guest/site/guest/search-history.phtml:48
 msgid "Search History"
 msgstr "Historique des recherches"
 
-#: src/Controller/Site/SearchRequestController.php:21
-#: src/Controller/Site/SearchRequestController.php:93
+#: src/Controller/Site/SearchRequestController.php:27
+#: src/Controller/Site/SearchRequestController.php:87
+#: src/Controller/Site/SearchRequestController.php:90
 msgid "Access forbidden"
 msgstr "Accès interdit"
 
-#: src/Controller/Site/SearchRequestController.php:31
+#: src/Controller/Site/SearchRequestController.php:37
 msgid "A query is required"
 msgstr "Une requête est nécessaire"
 
-#: src/Controller/Site/SearchRequestController.php:41
+#: src/Controller/Site/SearchRequestController.php:44
 msgid "The path of the engine is required"
 msgstr "Le chemin de recherche est nécessaire"
 
@@ -38,66 +44,32 @@ msgstr "Le chemin de recherche est nécessaire"
 msgid "Unable to save."
 msgstr "Impossible d’enregistrer."
 
-#: src/Generic/AbstractModule.php:66 src/Generic/AbstractModule.php:740
-#, php-format
-msgid "This module requires the module \"%s\"."
-msgstr "Ce module requiert le module \"%s\"."
-
-#: src/Generic/AbstractModule.php:73
-#, php-format
-msgid "This module requires modules \"%s\"."
-msgstr "Ce module requiert les modules \"%s\"."
-
-#: src/Generic/AbstractModule.php:80
-msgid "This module has resources that cannot be installed."
-msgstr "Ce module a des ressources qui ne peuvent pas être installées."
-
-#: src/Generic/AbstractModule.php:87
-msgid ""
-"This module cannot install its tables, because they exist already. Try to "
-"remove them first."
-msgstr ""
-"Ce module ne peut pas installer ses tables car elles existent déjà. Essayez "
-"de les supprimer manuellement."
-
-#: src/Generic/AbstractModule.php:328
-#, php-format
-msgid "The module removed tables \"%s\" from a previous broken install."
-msgstr ""
-"Le module a supprimé les tables « %s » depuis une installation échouée."
-
-#: src/Generic/AbstractModule.php:735
-#, php-format
-msgid "This module requires the module \"%s\", version %s or above."
-msgstr "Ce module requiert le module \"%s\", version \"%s\" ou supérieur."
-
-#: src/Generic/AbstractModule.php:832
-#, php-format
-msgid ""
-"The module \"%s\" was automatically deactivated because the dependencies are "
-"unavailable."
-msgstr ""
-"Le module \"%s\" a été automatiquement désactivé car ses dépendances ne sont "
-"plus disponibles."
-
-#: view/common/helper/search-history-button.phtml:24
-msgid "Delete saved search"
-msgstr "Supprimer la recherche sauvegardée"
-
-#: view/common/helper/search-history-button.phtml:25
-msgid "Save current search"
-msgstr "Enregistrer la recherche"
-
-#: view/common/helper/search-history-button.phtml:34
+#: view/common/dialog/search-history-save.phtml:37
 msgid "Give a name to your search"
 msgstr "Donnez un nom à votre recherche"
 
-#: view/guest/site/guest/search-history.phtml:43
+#: view/common/search-history-button.phtml:28
+msgid "Search deleted from your account."
+msgstr "Recherche supprimée de votre compte"
+
+#: view/common/search-history-button.phtml:29
+msgid "Delete saved search"
+msgstr "Supprimer la recherche sauvegardée"
+
+#: view/common/search-history-button.phtml:31
+msgid "Search saved in your account."
+msgstr "La recherche a été enregistrée dans votre compte."
+
+#: view/common/search-history-button.phtml:32
+msgid "Save current search"
+msgstr "Enregistrer la recherche"
+
+#: view/guest/site/guest/search-history.phtml:58
 #, php-format
 msgid "%d saved search requests"
 msgstr "%d recherches sauvegardées"
 
-#: view/guest/site/guest/search-history.phtml:59
+#: view/guest/site/guest/search-history.phtml:74
 msgid "No search requests are saved."
 msgstr "Aucune recherche n’est sauvegardée."
 
@@ -105,19 +77,62 @@ msgstr "Aucune recherche n’est sauvegardée."
 msgid "Search history"
 msgstr "Historique de recherche"
 
+#: data/scripts/upgrade.php:81
+msgid ""
+"The view helper \"linkSearchHistory\" was renamed \"searchHistoryLink\" and "
+"you should update your theme. Check your theme. Matching templates: {json}"
+msgstr ""
+"La fonction de vue « linkSearchHistory » a été renommé « searchHistoryLink » "
+"et vous devez mettre à jour votre thème. Fichiers correspondants : {json}"
+
+#: data/scripts/upgrade.php:111
+msgid "It is now possible to use a dialog for the form."
+msgstr "Il est désormais possible d’utiliser un dialogue pour le formulaire."
+
 #: src/Site/Navigation/Link/SearchHistory.php:23
 #, php-format
 msgid "Invalid navigation: link without label (%s)"
 msgstr "Navigation invalide : lien sans label (%s)"
 
-#: config/module.config.php:122
+#: config/module.config.php:125
 msgid "No query is set."
 msgstr "Aucune requête n’est indiquée."
 
-#: config/module.config.php:123
+#: config/module.config.php:126
 msgid "Your search is saved."
 msgstr "Votre recherche est sauvegardée."
 
-#: config/module.config.php:124
+#: config/module.config.php:127
 msgid "You can find it in your account."
 msgstr "Vous pouvez la retrouver dans votre compte."
+
+#, php-format
+#~ msgid "This module requires the module \"%s\"."
+#~ msgstr "Ce module requiert le module \"%s\"."
+
+#, php-format
+#~ msgid "This module requires modules \"%s\"."
+#~ msgstr "Ce module requiert les modules \"%s\"."
+
+#~ msgid "This module has resources that cannot be installed."
+#~ msgstr "Ce module a des ressources qui ne peuvent pas être installées."
+
+#~ msgid ""
+#~ "This module cannot install its tables, because they exist already. Try to "
+#~ "remove them first."
+#~ msgstr ""
+#~ "Ce module ne peut pas installer ses tables car elles existent déjà. "
+#~ "Essayez de les supprimer manuellement."
+
+#, php-format
+#~ msgid "The module removed tables \"%s\" from a previous broken install."
+#~ msgstr ""
+#~ "Le module a supprimé les tables « %s » depuis une installation échouée."
+
+#, php-format
+#~ msgid ""
+#~ "The module \"%s\" was automatically deactivated because the dependencies "
+#~ "are unavailable."
+#~ msgstr ""
+#~ "Le module \"%s\" a été automatiquement désactivé car ses dépendances ne "
+#~ "sont plus disponibles."
