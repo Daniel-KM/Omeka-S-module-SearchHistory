@@ -10,7 +10,7 @@ class SearchHistoryLink extends AbstractHelper
     /**
      * The default partial view script.
      */
-    const PARTIAL_NAME = 'common/helper/search-history-button';
+    const PARTIAL_NAME = 'common/search-history-button';
 
     /**
      * @var \SearchHistory\Api\Adapter\SearchRequestAdapter
