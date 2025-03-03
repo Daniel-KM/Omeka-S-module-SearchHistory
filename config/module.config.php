@@ -28,10 +28,6 @@ return  [
         'factories' => [
             'searchHistoryLink' => Service\ViewHelper\SearchHistoryLinkFactory::class,
         ],
-        'aliases' => [
-            // Deprecated alias.
-            'linkSearchHistory' => 'searchHistoryLink',
-        ],
     ],
     'controllers' => [
         'invokables' => [
