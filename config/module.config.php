@@ -25,7 +25,11 @@ return  [
     ],
     'view_helpers' => [
         'invokables' => [
-            'linkSearchHistory' => View\Helper\LinkSearchHistory::class,
+            'searchHistoryLink' => View\Helper\SearchHistoryLink::class,
+        ],
+        'aliases' => [
+            // Deprecated alias.
+            'linkSearchHistory' => 'searchHistoryLink',
         ],
     ],
     'controllers' => [

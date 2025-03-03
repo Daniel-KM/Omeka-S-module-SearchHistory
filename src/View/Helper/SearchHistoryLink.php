@@ -4,7 +4,7 @@ namespace SearchHistory\View\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
 
-class LinkSearchHistory extends AbstractHelper
+class SearchHistoryLink extends AbstractHelper
 {
     /**
      * Get the link to the search history button (to save or to delete).
