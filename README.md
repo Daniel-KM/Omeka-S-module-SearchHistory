@@ -16,12 +16,21 @@ with a query.
 Installation
 ------------
 
-Install the module [Guest].
+See general end user documentation for [installing a module].
 
-Uncompress files in the module directory and rename module folder `SearchHistory`.
+This module requires the modules [Guest] and [Common], that should be installed first.
+
+* From the zip
+
+Download the last release [SearchHistory.zip] from the list of releases, and
+uncompress it in the `modules` directory.
+
+* From the source and for development
+
+If the module was installed from the source, rename the name of the folder of
+the module to `SearchHistory`.
+
 Then install it like any other Omeka module and follow the config instructions.
-
-See general end user documentation for [Installing a module].
 
 
 Usage
@@ -80,7 +89,7 @@ of the CeCILL license and that you accept its terms.
 Copyright
 ---------
 
-* Copyright Daniel Berthereau, 2019-2023 (see [Daniel-KM] on GitLab)
+* Copyright Daniel Berthereau, 2019-2025 (see [Daniel-KM] on GitLab)
 
 This module was first developed for the [Fondation Maison de Salins].
 
@@ -88,8 +97,9 @@ This module was first developed for the [Fondation Maison de Salins].
 [Search History]: https://gitlab.com/Daniel-KM/Omeka-S-module-SearchHistory
 [Omeka S]: https://omeka.org/s
 [Guest]: https://gitlab.com/Daniel-KM/Omeka-S-module-Guest
+[Common]: https://gitlab.com/Daniel-KM/Omeka-S-module-Common
 [Selection]: https://gitlab.com/Daniel-KM/Omeka-S-module-Selection
-[Installing a module]: https://omeka.org/s/docs/user-manual/modules/#installing-modules
+[installing a module]: https://omeka.org/s/docs/user-manual/modules/#installing-modules
 [module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-SearchHistory/-/issues
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
