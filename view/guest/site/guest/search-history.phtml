@@ -6,10 +6,15 @@
  */
 
 $plugins = $this->getHelperPluginManager();
-$translate = $plugins->get('translate');
-$hyperlink = $plugins->get('hyperlink');
 $url = $plugins->get('url');
 $assetUrl = $this->plugin('assetUrl');
+$translate = $plugins->get('translate');
+$hyperlink = $plugins->get('hyperlink');
+$breadcrumbs = $plugins->has('breadcrumbs') ? $plugins->get('breadcrumbs') : null;
+$user = $plugins->get('identity')();
+$guestNavigation = $user && $plugins->has('guestNavigation') ? $plugins->get('guestNavigation')() : null;
+
+$hasGuestNav = $guestNavigation && $guestNavigation->getContainer()->count();
 
 $this->headLink()
     ->appendStylesheet($assetUrl('css/search-history.css', 'SearchHistory'));
@@ -29,6 +34,16 @@ $sortHeadings = [
     ],
 ];
 ?>
+
+<?php if ($breadcrumbs && !$hasGuestNav): ?>
+<?= $breadcrumbs() ?>
+<?php endif; ?>
+
+<?php if ($hasGuestNav): ?>
+<nav class="navigation-guest">
+    <?= $guestNavigation->menu()->renderMenu() ?>
+</nav>
+<?php endif; ?>
 
 <?= $this->pageTitle($translate('Search History'), 2); ?>
 
