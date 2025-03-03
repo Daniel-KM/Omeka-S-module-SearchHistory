@@ -114,10 +114,70 @@ class SearchRequestAdapter extends AbstractEntityAdapter
         }
 
         if (isset($query['query']) && $query['query'] !== '') {
+            $queryQuery = $this->cleanQuery($query['query']);
             $qb->andWhere($expr->eq(
                 'omeka_root.query',
-                $this->createNamedParameter($qb, $query['query'])
+                $this->createNamedParameter($qb, $queryQuery)
             ));
         }
+    }
+
+    /**
+     * Clean a query (remove empty values and sort by key) and get http query.
+     *
+     * @param string|array $query
+     * @return string
+     */
+    public function cleanQuery($query): string
+    {
+        if (empty($query)) {
+            return '';
+        }
+
+        if (!is_array($query)) {
+            $q = ltrim((string) $query, "? \t\n\r\0\x0B");
+            parse_str($q, $query);
+        }
+
+        // Clean query for better search.
+        // Keep sort, as it is a user choice.
+        unset(
+            $query['csrf'],
+            $query['page'],
+            $query['per_page'],
+            $query['offset'],
+            $query['limit'],
+            $query['submit']
+        );
+
+        // "0" is a valid value.
+        $arrayFilterRecursiveEmpty = null;
+        $arrayFilterRecursiveEmpty = function (array &$array) use (&$arrayFilterRecursiveEmpty): array {
+            foreach ($array as $key => $value) {
+                if (is_array($value)) {
+                    $array[$key] = $arrayFilterRecursiveEmpty($value);
+                }
+                if ($array[$key] === '' || $array[$key] === null || $array[$key] === []) {
+                    unset($array[$key]);
+                }
+            }
+            return $array;
+        };
+        $arrayFilterRecursiveEmpty($query);
+
+        /** @see https://softwareengineering.stackexchange.com/questions/291809/sort-multidimensional-array-recursively-is-this-reasonable */
+        $kSortRecursive = null;
+        $kSortRecursive = function (array &$array) use (&$kSortRecursive): void {
+            ksort($array);
+            foreach ($kSortRecursive as $key => $value) {
+                if (is_array($value)) {
+                    $kSortRecursive($kSortRecursive[$key]);
+                }
+            }
+        };
+        $kSortRecursive($query);
+
+        // TODO Use urldecode/rawurldecode?
+        return http_build_query($query, '', '&', PHP_QUERY_RFC3986);
     }
 }

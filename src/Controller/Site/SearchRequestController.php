@@ -5,9 +5,20 @@ namespace SearchHistory\Controller\Site;
 use Common\Mvc\Controller\Plugin\JSend;
 use Laminas\Http\PhpEnvironment\Response;
 use Laminas\Mvc\Controller\AbstractActionController;
+use SearchHistory\Api\Adapter\SearchRequestAdapter;
 
 class SearchRequestController extends AbstractActionController
 {
+    /**
+     * @var \SearchHistory\Api\Adapter\SearchRequestAdapter
+     */
+    protected $searchRequestAdapter;
+
+    public function __construct(SearchRequestAdapter $searchRequestAdapter)
+    {
+        $this->searchRequestAdapter = $searchRequestAdapter;
+    }
+
     public function addAction()
     {
         $user = $this->identity();
@@ -18,7 +29,9 @@ class SearchRequestController extends AbstractActionController
         }
 
         $params = $this->params();
-        $query = $this->cleanQuery();
+
+        // Either duplicate cleaning, very quick, or duplicate api, slower.
+        $query = $this->searchRequestAdapter->cleanQuery($params->fromPost('query'));
         if (!$query) {
             return $this->jSend(JSend::FAIL, [
                 'query' => $this->translate('A query is required'), // @translate
@@ -105,33 +118,5 @@ class SearchRequestController extends AbstractActionController
         return $this->jSend(JSend::SUCCESS, [
             'search_requests' => $results,
         ]);
-    }
-
-    /**
-     * Clean a request query.
-     *
-     * @see \SearchHistory\View\Helper\LinkSearchHistory::cleanQuery()
-     *
-     * @return string
-     */
-    protected function cleanQuery()
-    {
-        $params = $this->params();
-        $query = ltrim($params->fromPost('query'), "? \t\n\r\0\x0B");
-
-        // Clean query for better search.
-        $request = [];
-        parse_str($query, $request);
-        unset($request['csrf']);
-        unset($request['page']);
-        unset($request['per_page']);
-        unset($request['offset']);
-        unset($request['limit']);
-        $request = array_filter($request, function ($v) {
-            // TODO Improve cleaning of empty sub-arrays in the query.
-            return (bool) is_array($v) ? !empty($v) : strlen($v);
-        });
-
-        return http_build_query($request, '', '&', PHP_QUERY_RFC3986);
     }
 }

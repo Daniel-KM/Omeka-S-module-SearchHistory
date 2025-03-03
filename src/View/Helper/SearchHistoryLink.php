@@ -3,6 +3,7 @@
 namespace SearchHistory\View\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
+use SearchHistory\Api\Adapter\SearchRequestAdapter;
 
 class SearchHistoryLink extends AbstractHelper
 {
@@ -10,6 +11,16 @@ class SearchHistoryLink extends AbstractHelper
      * The default partial view script.
      */
     const PARTIAL_NAME = 'common/helper/search-history-button';
+
+    /**
+     * @var \SearchHistory\Api\Adapter\SearchRequestAdapter
+     */
+    protected $searchRequestAdapter;
+
+    public function __construct(SearchRequestAdapter $searchRequestAdapter)
+    {
+        $this->searchRequestAdapter = $searchRequestAdapter;
+    }
 
     /**
      * Get the link to the search history button (to save or to delete).
@@ -34,19 +45,19 @@ class SearchHistoryLink extends AbstractHelper
         $searchRequest = null;
 
         if ($user) {
-            $query = $this->cleanQuery();
-            $hasQuery = (bool) $query;
-            if ($hasQuery) {
-                $engine = $this->findEngine();
-                if ($engine) {
+            $engine = $this->findEngine();
+            if ($engine) {
+                $request = $view->params()->fromQuery();
+                // Either duplicate cleaning, very quick, or duplicate api, slower.
+                $request = $this->searchRequestAdapter->cleanQuery($request);
+                if ($request) {
+                    $query = $request;
                     $searchRequest = $view->api()->searchOne('search_requests', [
                         'user_id' => $user->getId(),
                         'site_id' => $site ? $site->id() : 0,
                         'engine' => $engine,
                         'query' => $query,
                     ])->getContent();
-                } else {
-                    $query = '';
                 }
             }
         }
@@ -68,6 +79,7 @@ class SearchHistoryLink extends AbstractHelper
      */
     protected function findEngine()
     {
+        /** @var \Omeka\View\Helper\Params $params */
         $params = $this->getView()->params();
         $controller = $params->fromRoute('controller');
         switch ($controller) {
@@ -98,32 +110,6 @@ class SearchHistoryLink extends AbstractHelper
                 break;
         }
         return $engine;
-    }
-
-    /**
-     * Clean a request query.
-     *
-     * @see \SearchHistory\Controller\Site\SearchRequestController::cleanQuery()
-     *
-     * @return string
-     */
-    protected function cleanQuery()
-    {
-        $view = $this->getView();
-
-        // Clean query for better search.
-        $request = $view->params()->fromQuery();
-        unset($request['csrf']);
-        unset($request['page']);
-        unset($request['per_page']);
-        unset($request['offset']);
-        unset($request['limit']);
-        $request = array_filter($request, function ($v) {
-            // TODO Improve cleaning of empty sub-arrays in the query.
-            return (bool) is_array($v) ? !empty($v) : strlen((string) $v);
-        });
-
-        return http_build_query($request);
     }
 
     /**

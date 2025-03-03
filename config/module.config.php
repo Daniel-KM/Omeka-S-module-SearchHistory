@@ -24,8 +24,8 @@ return  [
         ],
     ],
     'view_helpers' => [
-        'invokables' => [
-            'searchHistoryLink' => View\Helper\SearchHistoryLink::class,
+        'factories' => [
+            'searchHistoryLink' => Service\ViewHelper\SearchHistoryLinkFactory::class,
         ],
         'aliases' => [
             // Deprecated alias.
@@ -34,8 +34,10 @@ return  [
     ],
     'controllers' => [
         'invokables' => [
-            'SearchHistory\Controller\Site\SearchRequest' => Controller\Site\SearchRequestController::class,
             'SearchHistory\Controller\Site\GuestBoard' => Controller\Site\GuestBoardController::class,
+        ],
+        'factories' => [
+            'SearchHistory\Controller\Site\SearchRequest' => Service\Controller\Site\SearchRequestControllerFactory::class,
         ],
     ],
     'navigation_links' => [
