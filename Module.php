@@ -93,7 +93,7 @@ class Module extends AbstractModule
 
     public function handleViewBrowseAfter(Event $event): void
     {
-        echo $event->getTarget()->linkSearchHistory();
+        echo $event->getTarget()->searchHistoryLink();
     }
 
     public function handleGuestWidgets(Event $event): void
