@@ -12,6 +12,7 @@ $translate = $plugins->get('translate');
 $hyperlink = $plugins->get('hyperlink');
 $breadcrumbs = $plugins->has('breadcrumbs') ? $plugins->get('breadcrumbs') : null;
 $user = $plugins->get('identity')();
+$translatePlural = $plugins->get('translatePlural');
 $guestNavigation = $user && $plugins->has('guestNavigation') ? $plugins->get('guestNavigation')() : null;
 
 $hasGuestNav = $guestNavigation && $guestNavigation->getContainer()->count();
@@ -57,7 +58,7 @@ $sortHeadings = [
 </div>
 
 <?php if (count($searchRequests)): ?>
-<h3><?= sprintf($translate('%d saved search requests'), count($searchRequests)) ?></h3>
+<h3><?= sprintf($translatePlural('%d saved search', '%d saved searches', $searchRequests), $searchRequests) ?></h3>
 
 <?php $this->trigger('view.browse.before'); ?>
 <ul class="search-request-list">
