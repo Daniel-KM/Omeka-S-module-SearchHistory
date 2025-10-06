@@ -79,6 +79,12 @@
             }
         });
         
+        $(document).on('click', '.dialog-search-save .button-cancel', function(ev) {
+            ev.preventDefault();
+            const dialog = $(this).closest('dialog')[0];
+            if (dialog) dialog.close();
+        });
+
         $(document).on('click', 'button.search-history-delete', function(ev) {
             ev.preventDefault();
             ev.stopImmediatePropagation();
