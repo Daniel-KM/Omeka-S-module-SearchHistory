@@ -163,7 +163,7 @@ class SearchRequestAdapter extends AbstractEntityAdapter
         $data = $request->getContent();
         $inflector = InflectorFactory::create()->build();
         foreach ($data as $key => $value) {
-            $key = str_replace(['o:', 'o-module-search-history:'], '', $key);
+            $key = strtr($key, ['o:' => '', 'o-module-search-history:' => '']);
             if ($key === 'query') {
                 $value = $this->cleanQuery($value);
             }
