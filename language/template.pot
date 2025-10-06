@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-03 00:00+0000\n"
+"POT-Creation-Date: 2025-10-06 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr ""
 
-#: Module.php:106 view/guest/site/guest/search-history.phtml:48
+#: Module.php:106 view/guest/site/guest/search-history.phtml:51
 msgid "Search History"
 msgstr ""
 
@@ -44,32 +44,27 @@ msgstr ""
 msgid "Unable to save."
 msgstr ""
 
-#: view/common/dialog/search-history-save.phtml:37
+#: view/common/dialog/search-history-save.phtml:39
 msgid "Give a name to your search"
 msgstr ""
 
-#: view/common/search-history-button.phtml:28
+#: view/common/search-history-button.phtml:30
 msgid "Search deleted from your account."
 msgstr ""
 
-#: view/common/search-history-button.phtml:29
+#: view/common/search-history-button.phtml:31
 msgid "Delete saved search"
 msgstr ""
 
-#: view/common/search-history-button.phtml:31
+#: view/common/search-history-button.phtml:33
 msgid "Search saved in your account."
 msgstr ""
 
-#: view/common/search-history-button.phtml:32
+#: view/common/search-history-button.phtml:34
 msgid "Save current search"
 msgstr ""
 
-#: view/guest/site/guest/search-history.phtml:58
-#, php-format
-msgid "%d saved search requests"
-msgstr ""
-
-#: view/guest/site/guest/search-history.phtml:74
+#: view/guest/site/guest/search-history.phtml:77
 msgid "No search requests are saved."
 msgstr ""
 
@@ -85,11 +80,6 @@ msgstr ""
 
 #: data/scripts/upgrade.php:111
 msgid "It is now possible to use a dialog for the form."
-msgstr ""
-
-#: src/Site/Navigation/Link/SearchHistory.php:23
-#, php-format
-msgid "Invalid navigation: link without label (%s)"
 msgstr ""
 
 #: config/module.config.php:125

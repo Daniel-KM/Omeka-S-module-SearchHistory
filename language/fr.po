@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-03 00:00+0000\n"
-"PO-Revision-Date: 2025-03-03 00:00+0000\n"
+"POT-Creation-Date: 2025-10-06 00:00+0000\n"
+"PO-Revision-Date: 2025-10-06 00:00+0000\n"
 "Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -15,14 +15,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/scripts/upgrade.php:34 Module.php:63
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr "Le module %1$s doit être mis à niveau à la version %2$s ou supérieure."
 
-#: Module.php:106 view/guest/site/guest/search-history.phtml:48
+#: Module.php:106 view/guest/site/guest/search-history.phtml:51
 msgid "Search History"
 msgstr "Historique des recherches"
 
@@ -44,32 +44,27 @@ msgstr "Le chemin de recherche est nécessaire"
 msgid "Unable to save."
 msgstr "Impossible d’enregistrer."
 
-#: view/common/dialog/search-history-save.phtml:37
+#: view/common/dialog/search-history-save.phtml:39
 msgid "Give a name to your search"
 msgstr "Donnez un nom à votre recherche"
 
-#: view/common/search-history-button.phtml:28
+#: view/common/search-history-button.phtml:30
 msgid "Search deleted from your account."
-msgstr "Recherche supprimée de votre compte"
+msgstr "Recherche supprimée de votre compte."
 
-#: view/common/search-history-button.phtml:29
+#: view/common/search-history-button.phtml:31
 msgid "Delete saved search"
 msgstr "Supprimer la recherche sauvegardée"
 
-#: view/common/search-history-button.phtml:31
+#: view/common/search-history-button.phtml:33
 msgid "Search saved in your account."
 msgstr "La recherche a été enregistrée dans votre compte."
 
-#: view/common/search-history-button.phtml:32
+#: view/common/search-history-button.phtml:34
 msgid "Save current search"
 msgstr "Enregistrer la recherche"
 
-#: view/guest/site/guest/search-history.phtml:58
-#, php-format
-msgid "%d saved search requests"
-msgstr "%d recherches sauvegardées"
-
-#: view/guest/site/guest/search-history.phtml:74
+#: view/guest/site/guest/search-history.phtml:77
 msgid "No search requests are saved."
 msgstr "Aucune recherche n’est sauvegardée."
 
@@ -89,11 +84,6 @@ msgstr ""
 msgid "It is now possible to use a dialog for the form."
 msgstr "Il est désormais possible d’utiliser un dialogue pour le formulaire."
 
-#: src/Site/Navigation/Link/SearchHistory.php:23
-#, php-format
-msgid "Invalid navigation: link without label (%s)"
-msgstr "Navigation invalide : lien sans label (%s)"
-
 #: config/module.config.php:125
 msgid "No query is set."
 msgstr "Aucune requête n’est indiquée."
@@ -105,6 +95,14 @@ msgstr "Votre recherche est sauvegardée."
 #: config/module.config.php:127
 msgid "You can find it in your account."
 msgstr "Vous pouvez la retrouver dans votre compte."
+
+#, php-format
+#~ msgid "%d saved search requests"
+#~ msgstr "%d recherches sauvegardées"
+
+#, php-format
+#~ msgid "Invalid navigation: link without label (%s)"
+#~ msgstr "Navigation invalide : lien sans label (%s)"
 
 #, php-format
 #~ msgid "This module requires the module \"%s\"."
