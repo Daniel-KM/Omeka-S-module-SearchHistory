@@ -19,8 +19,10 @@ $translate = $plugins->get('translate');
 $escapeAttr = $plugins->get('escapeHtmlAttr');
 
 $this->headLink()
+    ->appendStylesheet($assetUrl('css/common-dialog.css', 'Common'))
     ->appendStylesheet($assetUrl('css/search-history.css', 'SearchHistory'));
 $this->headScript()
+    ->appendFile($assetUrl('js/common-dialog.js', 'Common'), 'text/javascript', ['defer' => 'defer'])
     ->appendFile($assetUrl('js/search-history.js', 'SearchHistory'), 'text/javascript', ['defer' => 'defer']);
 ?>
 
