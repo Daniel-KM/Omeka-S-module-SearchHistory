@@ -175,11 +175,11 @@ class SearchRequestAdapter extends AbstractEntityAdapter
         }
         if ($this->shouldHydrate($request, 'o:user_id')) {
             $userId = $request->getValue('o:user_id');
-            $entity->setUser($this->getAdapter('users')->findEntity($userId));
+            $entity->setUser($this->getEntityManager()->find(\Omeka\Entity\User::class, $userId));
         }
         if ($this->shouldHydrate($request, 'o:site_id')) {
             $siteId = $request->getValue('o:site_id');
-            $entity->setSite($this->getAdapter('sites')->findEntity($siteId));
+            $entity->setSite($this->getEntityManager()->find(\Omeka\Entity\Site::class, $siteId));
         }
         $this->updateTimestamps($request, $entity);
     }
