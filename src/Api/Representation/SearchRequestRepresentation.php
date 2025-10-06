@@ -22,29 +22,24 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
     {
         $user = $this->user();
         $site = $this->site();
-
-        $created = [
-            '@value' => $this->getDateTime($this->created()),
-            '@type' => 'http://www.w3.org/2001/XMLSchema#dateTime',
-        ];
-
         $modified = $this->modified();
-        if ($modified) {
-            $modified = [
-                '@value' => $this->getDateTime($modified),
-                '@type' => 'http://www.w3.org/2001/XMLSchema#dateTime',
-            ];
-        }
 
         return [
             'o:id' => $this->id(),
-            'o:user' => $user ? $user->getReference() : null,
+            'o:user' => $user ? $user->getReference()->jsonSerialize() : null,
             'o:comment' => $this->comment(),
-            'o:site' => $site ? $site->getReference() : null,
+            'o:site' => $site ? $site->getReference()->jsonSerialize() : null,
             'o:engine' => $this->engine(),
             'o:query' => $this->query(),
-            'o:created' => $created,
-            'o:modified' => $modified,
+            'o:created' => [
+                '@value' => $this->getDateTime($this->created())->jsonSerialize(),
+                '@type' => 'http://www.w3.org/2001/XMLSchema#dateTime',
+            ],
+            'o:modified' => $modified
+                ? [
+                    '@value' => $this->getDateTime($modified)->jsonSerialize(),
+                    '@type' => 'http://www.w3.org/2001/XMLSchema#dateTime',
+                ] : null,
         ];
     }
 
