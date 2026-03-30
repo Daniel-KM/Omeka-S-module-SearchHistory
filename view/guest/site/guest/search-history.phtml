@@ -7,11 +7,11 @@
 
 $plugins = $this->getHelperPluginManager();
 $url = $plugins->get('url');
+$user = $plugins->get('identity')();
 $assetUrl = $this->plugin('assetUrl');
 $translate = $plugins->get('translate');
 $hyperlink = $plugins->get('hyperlink');
 $breadcrumbs = $plugins->has('breadcrumbs') ? $plugins->get('breadcrumbs') : null;
-$user = $plugins->get('identity')();
 $translatePlural = $plugins->get('translatePlural');
 $guestNavigation = $user && $plugins->has('guestNavigation') ? $plugins->get('guestNavigation')() : null;
 
@@ -68,9 +68,23 @@ $sortOptions = [
             <?php endforeach; ?>
         </select>
         <?php if ($totalResults): ?>
+        <?php
+        $clearPeriods = json_encode([
+            ['value' => '1h', 'label' => $translate('Last hour')], // @translate
+            ['value' => '24h', 'label' => $translate('Last 24 hours')], // @translate
+            ['value' => '7d', 'label' => $translate('Last 7 days')], // @translate
+            ['value' => '30d', 'label' => $translate('Last 30 days')], // @translate
+            ['value' => 'all', 'label' => $translate('All history')], // @translate
+        ], JSON_UNESCAPED_UNICODE);
+        ?>
         <button type="button" class="button search-history-clear"
-            data-url="<?= $url('site/search-history', ['action' => 'clear'], true) ?>"
-            data-msg-success="<?= $escapeAttr($translate('You have cleared the selected items from your history.') . "\n" . $translate('Feel free to explore our library again.')) ?>">
+            data-url="<?= $escapeAttr($url('site/search-history', ['action' => 'clear'], true)) ?>"
+            data-heading="<?= $escapeAttr($translate('Clear search history')) ?>"
+            data-msg-confirm="<?= $escapeAttr($translate('This action is irreversible. Select the period to clear:')) ?>"
+            data-msg-success="<?= $escapeAttr($translate('You have cleared the selected items from your history.') . "\n" . $translate('Feel free to explore our library again.')) ?>"
+            data-text-ok="<?= $escapeAttr($translate('Confirm')) ?>"
+            data-text-cancel="<?= $escapeAttr($translate('Cancel')) ?>"
+            data-periods="<?= $escapeAttr($clearPeriods) ?>">
             <?= $translate('Clear search history') ?>
         </button>
         <?php endif; ?>
@@ -86,7 +100,11 @@ $sortOptions = [
     <li class="search-request">
         <h4><?= $hyperlink($searchRequest->comment(), $searchRequest->originalUrl()) ?></h4>
         <button type="button" class="button search-history-delete-one"
-            data-url="<?= $escapeAttr($url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true)) ?>">
+            data-url="<?= $escapeAttr($url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true)) ?>"
+            data-heading="<?= $escapeAttr($translate('Delete search')) ?>"
+            data-msg-confirm="<?= $escapeAttr($translate('Are you sure you want to delete this saved search?')) ?>"
+            data-text-ok="<?= $escapeAttr($translate('Delete')) ?>"
+            data-text-cancel="<?= $escapeAttr($translate('Cancel')) ?>">
             <?= $translate('Delete') ?>
         </button>
     </li>

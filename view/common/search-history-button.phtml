@@ -37,13 +37,20 @@ $this->headScript()
 
 <?php else: ?>
 
-    <button type="button" class="button delete search-history-button search-history-delete <?= $searchRequest ? '' : ' hidden' ?>" data-url="<?= $searchRequest ? $url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true) : '' ?>" data-msg-success="<?= $escapeAttr($translate('Search deleted from your account.')) ?>">
+    <button type="button" class="button delete search-history-button search-history-delete <?= $searchRequest ? '' : ' hidden' ?>"
+        data-url="<?= $searchRequest ? $escapeAttr($url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true)) : '' ?>"
+        data-heading="<?= $escapeAttr($translate('Save search')) ?>"
+        data-msg-success="<?= $escapeAttr($translate('Search deleted from your account.')) ?>">
         <span class="search-history-icon"><?= $translate('Delete saved search') ?></span>
     </button>
 
 <?php endif; ?>
 
-    <button type="button" class="button add search-history-button search-history-save<?= $searchRequest ? ' hidden' : '' ?>" data-msg-success="<?= $escapeAttr($translate('Search saved in your account.')) ?>" data-msg-no-query="<?= $escapeAttr('The current search has no query.') ?>">
+    <button type="button" class="button add search-history-button search-history-save<?= $searchRequest ? ' hidden' : '' ?>"
+        data-heading="<?= $escapeAttr($translate('Save search')) ?>"
+        data-msg-success="<?= $escapeAttr($translate('Search saved in your account.')) ?>"
+        data-msg-no-query="<?= $escapeAttr($translate('The current search has no query.')) ?>"
+        data-msg-missing="<?= $escapeAttr($translate('Cannot save search: the dialog is missing.')) ?>">
         <span class="search-history-icon"><?= $translate('Save current search') ?></span>
     </button>
 </div>

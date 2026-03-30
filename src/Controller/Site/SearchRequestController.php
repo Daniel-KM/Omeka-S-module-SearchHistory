@@ -38,7 +38,7 @@ class SearchRequestController extends AbstractActionController
             ]);
         }
 
-        $engine = $params->fromPost('engine');
+        $engine = (string) $params->fromPost('engine');
         if (!strlen($engine)) {
             return $this->jSend(JSend::FAIL, [
                 'engine' => $this->translate('The path of the engine is required'), // @translate
