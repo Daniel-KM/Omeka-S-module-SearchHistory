@@ -16,8 +16,12 @@
             const query = window.location.search.substring(1);
             if (!query || !query.length) {
                 let msg = $('button.search-history-save').data('msg-no-query');
-                msg = msg && msg.length ? msg : 'The current search has no query.';
-                CommonDialog.dialogAlert({ message: msg, nl2br: true });
+                msg = msg && msg.length ? msg : Omeka.jsTranslate('The current search has no query.');
+                CommonDialog.dialogAlert({
+                    heading: Omeka.jsTranslate('Save search'),
+                    message: msg,
+                    nl2br: true,
+                });
                 return;
             }
 
@@ -48,7 +52,11 @@
                     $(form).closest('dialog')[0].close();
                     let msg = $('button.search-history-save').data('msg-success');
                     msg = msg && msg.length ? msg : CommonDialog.jSendMessage(data);
-                    CommonDialog.dialogAlert({ message: msg ? msg : 'Search saved in your account.', nl2br: true });
+                    CommonDialog.dialogAlert({
+                        heading: Omeka.jsTranslate('Save search'),
+                        message: msg ? msg : Omeka.jsTranslate('Search saved in your account.'),
+                        nl2br: true,
+                    });
                     // Update buttons.
                     $('button.search-history-delete')
                         .data('url', data.data.url_delete)
@@ -60,12 +68,22 @@
                     const data = xhr.responseJSON;
                     if (data && data.status === 'fail') {
                         let msg = CommonDialog.jSendMessage(data);
-                        CommonDialog.dialogAlert({ message: msg ? msg : 'Check input', nl2br: true });
+                        CommonDialog.dialogAlert({
+                            heading: Omeka.jsTranslate('Save search'),
+                            message: msg ? msg : Omeka.jsTranslate('Check input'),
+                            nl2br: true,
+                        });
                         form[0].reset();
                     } else {
                         // Error is a server error (in particular cannot send mail).
-                        let msg = data && data.status === 'error' && data.message && data.message.length ? data.message : 'An error occurred.';
-                        CommonDialog.dialogAlert({ message: msg, nl2br: true });
+                        let msg = data && data.status === 'error' && data.message && data.message.length
+                            ? data.message
+                            : Omeka.jsTranslate('An error occurred.');
+                        CommonDialog.dialogAlert({
+                            heading: Omeka.jsTranslate('Save search'),
+                            message: msg,
+                            nl2br: true,
+                        });
                     }
                 })
                 .always(function () {
@@ -101,8 +119,9 @@
                 $(dialog).trigger('o:dialog-opened');
             } else {
                 CommonDialog.dialogAlert({
-                    message: 'Cannot save search: the dialog is missing.',
-                    nl2br: true
+                    heading: Omeka.jsTranslate('Save search'),
+                    message: Omeka.jsTranslate('Cannot save search: the dialog is missing.'),
+                    nl2br: true,
                 });
             }
         });
@@ -126,7 +145,11 @@
                 // Success to delete query.
                 let msg = submitButton.data('msg-success');
                 msg = msg && msg.length ? msg : CommonDialog.jSendMessage(data);
-                CommonDialog.dialogAlert({ message: msg ? msg : 'Search deleted from your account.', nl2br: true });
+                CommonDialog.dialogAlert({
+                    heading: Omeka.jsTranslate('Save search'),
+                    message: msg ? msg : Omeka.jsTranslate('Search deleted from your account.'),
+                    nl2br: true,
+                });
                 // Update buttons.
                 submitButton.addClass('hidden').hide();
                 $('button.search-history-save').removeClass('hidden').show();
@@ -136,11 +159,21 @@
                 if (data && data.status === 'fail') {
                     // The search may have been deleted in another tab.
                     let msg = CommonDialog.jSendMessage(data);
-                    CommonDialog.dialogAlert({ message: msg ? msg : 'Check input', nl2br: true });
+                    CommonDialog.dialogAlert({
+                        heading: Omeka.jsTranslate('Save search'),
+                        message: msg ? msg : Omeka.jsTranslate('Check input'),
+                        nl2br: true,
+                    });
                 } else {
                     // Error is a server error (in particular cannot send mail).
-                    let msg = data && data.status === 'error' && data.message && data.message.length ? data.message : 'An error occurred.';
-                    CommonDialog.dialogAlert({ message: msg, nl2br: true });
+                    let msg = data && data.status === 'error' && data.message && data.message.length
+                        ? data.message
+                        : Omeka.jsTranslate('An error occurred.');
+                    CommonDialog.dialogAlert({
+                        heading: Omeka.jsTranslate('Save search'),
+                        message: msg,
+                        nl2br: true,
+                    });
                 }
             })
             .always(function(data) {

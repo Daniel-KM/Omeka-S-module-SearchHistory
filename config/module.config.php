@@ -127,9 +127,16 @@ return  [
         ],
     ],
     'js_translate_strings' => [
+        'An error occurred.', // @translate
+        'Cannot save search: the dialog is missing.', // @translate
+        'Check input', // @translate
         'No query is set.', // @translate
-        'Your search is saved.', // @translate
+        'Save search', // @translate
+        'Search deleted from your account.', // @translate
+        'Search saved in your account.', // @translate
+        'The current search has no query.', // @translate
         'You can find it in your account.', // @translate
+        'Your search is saved.', // @translate
     ],
     'blocksdisposition' => [
         'item_set_browse' => [
