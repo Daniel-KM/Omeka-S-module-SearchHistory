@@ -199,6 +199,7 @@
                 textCancel: btn.data('text-cancel') || Omeka.jsTranslate('Cancel'),
             }).then(function(result) {
                 if (!result) return;
+                btn.prop('disabled', true);
                 $.ajax({
                     type: 'POST',
                     url: urlDelete,
@@ -212,6 +213,7 @@
                     });
                 })
                 .fail(function(xhr) {
+                    btn.prop('disabled', false);
                     CommonDialog.spinnerDisable(btn[0]);
                     const data = xhr.responseJSON;
                     const msg = data && data.data
