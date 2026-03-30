@@ -11,8 +11,7 @@ class SearchHistoryLinkFactory implements FactoryInterface
     public function __invoke(ContainerInterface $services, $requestedName, ?array $options = null)
     {
         return new SearchHistoryLink(
-            $services->get('Omeka\ApiAdapterManager')->get('search_requests'),
-            $services->get('Omeka\Settings\Site')
+            $services->get('Omeka\ApiAdapterManager')->get('search_requests')
         );
     }
 }

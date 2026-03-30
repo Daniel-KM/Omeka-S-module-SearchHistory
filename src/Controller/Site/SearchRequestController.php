@@ -21,6 +21,12 @@ class SearchRequestController extends AbstractActionController
 
     public function addAction()
     {
+        if (!$this->getRequest()->isPost()) {
+            return $this->jSend(JSend::FAIL, [
+                'method' => $this->translate('Method not allowed'), // @translate
+            ], null, Response::STATUS_CODE_405);
+        }
+
         $user = $this->identity();
         if (!$user) {
             return $this->jSend(JSend::FAIL, [
@@ -140,6 +146,12 @@ class SearchRequestController extends AbstractActionController
 
     public function deleteAction()
     {
+        if (!$this->getRequest()->isPost()) {
+            return $this->jSend(JSend::FAIL, [
+                'method' => $this->translate('Method not allowed'), // @translate
+            ], null, Response::STATUS_CODE_405);
+        }
+
         $returnJson = $this->getRequest()->isXmlHttpRequest();
 
         $user = $this->identity();
@@ -154,7 +166,7 @@ class SearchRequestController extends AbstractActionController
         }
 
         $params = $this->params();
-        $id = $params->fromRoute('id') ?: $params->fromQuery('id');
+        $id = $params->fromRoute('id') ?: $params->fromPost('id');
         if (!$id) {
             if ($returnJson) {
                 return $this->jSend(JSend::FAIL, [
@@ -165,8 +177,7 @@ class SearchRequestController extends AbstractActionController
             return $this->redirect()->toRoute('site/guest/search-history', ['action' => 'show'], true);
         }
 
-        $isMultiple = is_array($id);
-        $ids = $isMultiple ? $id : [$id];
+        $ids = is_array($id) ? array_map('intval', $id) : [(int) $id];
 
         $api = $this->api();
 

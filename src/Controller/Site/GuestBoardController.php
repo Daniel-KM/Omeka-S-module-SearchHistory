@@ -16,22 +16,37 @@ class GuestBoardController extends AbstractActionController
 
     public function showAction()
     {
+        $user = $this->identity();
+        if (!$user) {
+            return $this->redirect()->toRoute('login');
+        }
+
         $site = $this->currentSite();
 
-        $user = $this->identity();
-        $query = $this->params()->fromQuery();
-        $query['user_id'] = $user->getId();
+        $raw = $this->params()->fromQuery();
+        $query = [
+            'user_id' => $user->getId(),
+            'sort_by' => $raw['sort_by'] ?? null,
+            'sort_order' => $raw['sort_order'] ?? null,
+            'page' => $raw['page'] ?? null,
+            'per_page' => $raw['per_page'] ?? null,
+        ];
+        $query = array_filter($query, function ($v) {
+            return $v !== null && $v !== '';
+        });
 
         $this->setBrowseDefaults('created');
         $response = $this->api()->search('search_requests', $query);
         $this->paginator($response->getTotalResults());
         $searchRequests = $response->getContent();
 
-        $view = new ViewModel;
+        $view = new ViewModel([
+            'site' => $site,
+            'user' => $user,
+            'searchRequests' => $searchRequests,
+            'resources' => $searchRequests,
+        ]);
         return $view
-            ->setTemplate('guest/site/guest/search-history')
-            ->setVariable('site', $site)
-            ->setVariable('searchRequests', $searchRequests)
-            ->setVariable('resources', $searchRequests);
+            ->setTemplate('guest/site/guest/search-history');
     }
 }

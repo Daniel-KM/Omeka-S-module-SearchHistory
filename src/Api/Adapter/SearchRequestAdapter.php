@@ -2,7 +2,6 @@
 
 namespace SearchHistory\Api\Adapter;
 
-use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\QueryBuilder;
 use Omeka\Api\Adapter\AbstractEntityAdapter;
 use Omeka\Api\Request;
@@ -156,11 +155,12 @@ class SearchRequestAdapter extends AbstractEntityAdapter
         $kSortRecursive = null;
         $kSortRecursive = function (array &$array) use (&$kSortRecursive): void {
             ksort($array);
-            foreach ($kSortRecursive as $key => $value) {
+            foreach ($array as $key => &$value) {
                 if (is_array($value)) {
-                    $kSortRecursive($kSortRecursive[$key]);
+                    $kSortRecursive($value);
                 }
             }
+            unset($value);
         };
         $kSortRecursive($query);
 
@@ -171,17 +171,14 @@ class SearchRequestAdapter extends AbstractEntityAdapter
     {
         /** @var \SearchHistory\Entity\SearchRequest $entity */
         $data = $request->getContent();
-        $inflector = InflectorFactory::create()->build();
-        foreach ($data as $key => $value) {
-            $key = strtr($key, ['o:' => '', 'o-module-search-history:' => '']);
-            if ($key === 'query') {
-                $value = $this->cleanQuery($value);
-            }
-            $method = 'set' . ucfirst($inflector->camelize($key));
-            if (!method_exists($entity, $method)) {
-                continue;
-            }
-            $entity->$method($value);
+        if ($this->shouldHydrate($request, 'o:comment')) {
+            $entity->setComment($data['o:comment'] ?? null);
+        }
+        if ($this->shouldHydrate($request, 'o:engine')) {
+            $entity->setEngine($data['o:engine'] ?? null);
+        }
+        if ($this->shouldHydrate($request, 'o:query')) {
+            $entity->setQuery($this->cleanQuery($data['o:query'] ?? ''));
         }
         if ($this->shouldHydrate($request, 'o:user_id')) {
             $userId = $request->getValue('o:user_id');

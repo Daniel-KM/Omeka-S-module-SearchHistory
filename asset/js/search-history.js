@@ -141,6 +141,7 @@
             const urlButton = submitButton.data('url');
             const heading = submitButton.data('heading') || Omeka.jsTranslate('Save search');
             $.ajax({
+                type: 'POST',
                 url: urlButton,
                 beforeSend: function() { CommonDialog.spinnerEnable(submitButton[0]); },
             })
@@ -241,12 +242,17 @@
                 { value: '30d', label: Omeka.jsTranslate('Last 30 days') },
                 { value: 'all', label: Omeka.jsTranslate('All history') },
             ];
+            const escHtml = function(s) {
+                const d = document.createElement('div');
+                d.appendChild(document.createTextNode(s));
+                return d.innerHTML;
+            };
             let radioHtml = '<div class="search-history-clear-options">';
             periods.forEach(function(p, i) {
                 const checked = i === 0 ? ' checked' : '';
                 radioHtml += '<label class="search-history-clear-option">'
-                    + '<input type="radio" name="clear_period" value="' + p.value + '"' + checked + ' /> '
-                    + p.label
+                    + '<input type="radio" name="clear_period" value="' + escHtml(p.value) + '"' + checked + ' /> '
+                    + escHtml(p.label)
                     + '</label>';
             });
             radioHtml += '</div>';
