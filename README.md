@@ -32,6 +32,15 @@ the module to `SearchHistory`.
 
 Then install it like any other Omeka module and follow the config instructions.
 
+- For test
+
+The module includes a test suite with unit and functional tests.
+Run them from the root of Omeka:
+
+```sh
+vendor/bin/phpunit -c modules/SearchHistory/phpunit.xml --testdox
+```
+
 
 Usage
 -----
@@ -92,6 +101,7 @@ Copyright
 * Copyright Daniel Berthereau, 2019-2025 (see [Daniel-KM] on GitLab)
 
 This module was first developed for the [Fondation Maison de Salins].
+New developments were done for [Musée de Bretagne].
 
 
 [Search History]: https://gitlab.com/Daniel-KM/Omeka-S-module-SearchHistory
@@ -106,5 +116,6 @@ This module was first developed for the [Fondation Maison de Salins].
 [FSF]: https://www.fsf.org
 [OSI]: http://opensource.org
 [Fondation Maison de Salins]: https://collections.maison-salins.fr
+[Musée de Bretagne]: https://musee-bretagne.fr
 [GitLab]: https://gitlab.com/Daniel-KM
 [Daniel-KM]: https://gitlab.com/Daniel-KM "Daniel Berthereau"
