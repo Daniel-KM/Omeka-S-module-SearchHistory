@@ -106,7 +106,22 @@ class Module extends AbstractModule
 
     public function handleViewBrowseAfter(Event $event): void
     {
-        echo $event->getTarget()->searchHistoryLink();
+        $services = $this->getServiceLocator();
+        $currentTheme = $services->get('Omeka\Site\ThemeManager')->getCurrentTheme();
+        if (method_exists($currentTheme, 'isConfigurableResourcePageBlocks') && $currentTheme->isConfigurableResourcePageBlocks()) {
+            return;
+        }
+        $placements = $services->get('Omeka\Settings\Site')->get('searchhistory_placement', []);
+        $easyMeta = $services->get('Common\EasyMeta');
+        $view = $event->getTarget();
+        $params = $view->params();
+        $controller = $params->fromRoute()['__CONTROLLER'] ?? $params->fromRoute()['controller'] ?? null;
+        $resourceName = $easyMeta->resourceName($controller);
+        $key = 'browse/' . $resourceName;
+        if (!in_array($key, $placements)) {
+            return;
+        }
+        echo $view->searchHistoryLink();
     }
 
     public function handleGuestWidgets(Event $event): void

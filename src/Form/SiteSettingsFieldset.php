@@ -2,6 +2,7 @@
 
 namespace SearchHistory\Form;
 
+use Common\Form\Element as CommonElement;
 use Laminas\Form\Element;
 use Laminas\Form\Fieldset;
 
@@ -14,6 +15,7 @@ class SiteSettingsFieldset extends Fieldset
 
     protected $elementGroups = [
         'search_history' => 'Search History', // @translate
+        'themes_old' => 'Old themes', // @translate
     ];
 
     public function init(): void
@@ -45,6 +47,24 @@ class SiteSettingsFieldset extends Fieldset
                 ],
                 'attributes' => [
                     'id' => 'searchhistory_remove_in_account',
+                ],
+            ])
+
+            ->add([
+                'name' => 'searchhistory_placement',
+                'type' => CommonElement\OptionalMultiCheckbox::class,
+                'options' => [
+                    'element_group' => 'themes_old',
+                    'label' => 'Search history (old themes)', // @translate
+                    'value_options' => [
+                        'browse/items' => 'Item browse', // @translate
+                        'browse/media' => 'Media browse', // @translate
+                        'browse/item_sets' => 'Item set browse', // @translate
+                    ],
+                ],
+                'attributes' => [
+                    'id' => 'searchhistory_placement',
+                    'required' => false,
                 ],
             ])
         ;

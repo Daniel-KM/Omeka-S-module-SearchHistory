@@ -160,6 +160,7 @@ return  [
     ],
     'searchhistory' => [
         'site_settings' => [
+            'searchhistory_placement' => [],
             'searchhistory_save_automatic' => false,
             'searchhistory_remove_in_account' => false,
         ],
