@@ -1,0 +1,40 @@
+{
+    "name": "daniel-km/omeka-s-module-search-history",
+    "type": "omeka-s-module",
+    "description": "Module for Omeka S: Allow user to save search and to callback it via the guest account.",
+    "keywords": [
+        "Omeka S",
+        "Omeka S module",
+        "user board",
+        "search history"
+    ],
+    "license": "CECILL-2.1",
+    "homepage": "https://gitlab.com/Daniel-KM/Omeka-S-module-SearchHistory",
+    "authors": [
+        {
+            "name": "Daniel Berthereau",
+            "email": "Daniel.packagist@Berthereau.net"
+        }
+    ],
+    "support": {
+        "issues": "https://gitlab.com/Daniel-KM/Omeka-S-module-SearchHistory/-/issues",
+        "forum": "https://forum.omeka.org/"
+    },
+    "_require (not set until Omeka S merges PR #2412)": {
+        "omeka/omeka-s": "^4.1",
+        "daniel-km/omeka-s-module-common": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SearchHistory\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SearchHistoryTest\\": "tests/SearchHistoryTest/"
+        }
+    },
+    "extra": {
+        "installer-name": "SearchHistory"
+    }
+}
