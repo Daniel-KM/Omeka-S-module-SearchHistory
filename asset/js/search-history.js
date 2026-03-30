@@ -24,14 +24,21 @@
             const form = $(this);
             const urlForm = form.attr('action') ? form.attr('action') : window.location.href;
             const submitButton = form.closest('dialog').find('[type=submit]');
+
+            // Set query in hidden input, or append it to serialized data as a
+            // fallback when the input is missing from the dom.
             form.find('input[name=query]').val(query);
+            let data = form.serialize();
+            if (data.indexOf('query=') === -1) {
+                data += (data ? '&' : '') + 'query=' + encodeURIComponent(query);
+            }
 
             // TODO Use CommonDialog.jSend.
             $
                 .ajax({
                     type: 'POST',
                     url: urlForm,
-                    data: form.serialize(),
+                    data: data,
                     beforeSend: function() { CommonDialog.spinnerEnable(submitButton[0]); },
                 })
                 .done(function(data) {
@@ -78,7 +85,7 @@
                 });
             }
         });
-        
+
         $(document).on('click', '.dialog-search-save .button-cancel', function(ev) {
             ev.preventDefault();
             const dialog = $(this).closest('dialog')[0];
@@ -124,6 +131,6 @@
                 }
             });
         });
-   
+
     });
 })();
