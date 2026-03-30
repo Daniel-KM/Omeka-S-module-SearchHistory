@@ -23,6 +23,19 @@ class SiteSettingsFieldset extends Fieldset
             ->setOption('element_groups', $this->elementGroups)
 
             ->add([
+                'name' => 'searchhistory_save_automatic',
+                'type' => Element\Checkbox::class,
+                'options' => [
+                    'element_group' => 'search_history',
+                    'label' => 'Automatic save', // @translate
+                    'info' => 'When checked, all searches are saved automatically and the save button is hidden on search result pages.', // @translate
+                ],
+                'attributes' => [
+                    'id' => 'searchhistory_save_automatic',
+                ],
+            ])
+
+            ->add([
                 'name' => 'searchhistory_remove_in_account',
                 'type' => Element\Checkbox::class,
                 'options' => [

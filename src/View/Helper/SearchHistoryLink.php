@@ -63,6 +63,24 @@ class SearchHistoryLink extends AbstractHelper
             }
         }
 
+        $automaticSave = (bool) $view->siteSetting('searchhistory_save_automatic', false);
+
+        // When automatic save is enabled, save the search silently
+        // and don't display the button.
+        if ($automaticSave) {
+            if ($user && $engine && $query && !$searchRequest) {
+                $comment = (new \DateTime())->format('Y-m-d H:i:s');
+                $view->api()->create('search_requests', [
+                    'o:user_id' => $user->getId(),
+                    'o:comment' => $comment,
+                    'o:site_id' => $site ? $site->id() : null,
+                    'o:engine' => $engine,
+                    'o:query' => $query,
+                ]);
+            }
+            return '';
+        }
+
         $removeInAccount = (bool) $view->siteSetting('searchhistory_remove_in_account', false);
 
         $template = $options['template'] ?? self::PARTIAL_NAME;

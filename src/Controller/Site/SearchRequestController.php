@@ -50,9 +50,27 @@ class SearchRequestController extends AbstractActionController
 
         $api = $this->api();
 
+        // Skip duplicate automatic saves.
         $comment = trim((string) $params->fromPost('comment'));
         if (empty($comment)) {
-            $comment = (new \DateTime())->format('Y-m-d H:i:s');
+            $existing = $api->searchOne('search_requests', [
+                'user_id' => $user->getId(),
+                'site_id' => $siteId ?? 0,
+                'query' => $query,
+                'engine' => $engine,
+            ])->getContent();
+            if ($existing) {
+                return $this->jSend(JSend::SUCCESS, [
+                    'search_request' => $existing,
+                    'url_delete' => $this->url()->fromRoute('site/search-history-id', ['action' => 'delete', 'id' => $existing->id()], true),
+                ]);
+            }
+        }
+        if (empty($comment)) {
+            parse_str($query, $queryParams);
+            $text = $queryParams['q'] ?? $queryParams['fulltext_search'] ?? '';
+            $date = (new \DateTime())->format('Y-m-d H:i:s');
+            $comment = $text !== '' ? $text . ' — ' . $date : $date;
         }
 
         $searchRequest = [
