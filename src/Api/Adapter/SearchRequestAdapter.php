@@ -53,7 +53,17 @@ class SearchRequestAdapter extends AbstractEntityAdapter
     {
         $expr = $qb->expr();
 
-        if (isset($query['user_id'])) {
+        // Force filtering by current user for non-admin roles.
+        $services = $this->getServiceLocator();
+        $identity = $services->get('Omeka\AuthenticationService')->getIdentity();
+        if ($identity) {
+            $acl = $services->get('Omeka\Acl');
+            if (!$acl->userIsAllowed('Omeka\Controller\Admin\User', 'browse')) {
+                $query['user_id'] = $identity->getId();
+            }
+        }
+
+        if (isset($query['user_id']) && $query['user_id'] !== '') {
             $userAlias = $this->createAlias();
             $qb->innerJoin(
                 'omeka_root.user',

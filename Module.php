@@ -43,13 +43,21 @@ class Module extends AbstractModule
         $acl
             ->allow(
                 $roles,
+                [Entity\SearchRequest::class],
+                ['create', 'read', 'update', 'delete']
+            )
+            ->allow(
+                $roles,
+                [Api\Adapter\SearchRequestAdapter::class],
+                ['search', 'read', 'create', 'update', 'delete']
+            )
+            ->allow(
+                $roles,
                 [
-                    Entity\SearchRequest::class,
-                    Api\Adapter\SearchRequestAdapter::class,
                     'SearchHistory\Controller\Site\SearchRequest',
                     'SearchHistory\Controller\Site\GuestBoard',
                 ]
-        );
+            );
     }
 
     protected function preInstall(): void
