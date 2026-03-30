@@ -106,7 +106,7 @@ class SearchRequestRepresentation extends AbstractEntityRepresentation
             $api = $this->getServiceLocator()->get('Omeka\ApiManager');
             try {
                 $engine = $api->read('search_pages', $engine)->getContent()->path();
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
 
