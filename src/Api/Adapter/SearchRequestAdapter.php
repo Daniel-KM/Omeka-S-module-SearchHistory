@@ -75,21 +75,21 @@ class SearchRequestAdapter extends AbstractEntityAdapter
             ));
         }
 
-        if (isset($query['site_id'])) {
-            $siteAlias = $this->createAlias();
-            $qb->innerJoin(
-                'omeka_root.site',
-                $siteAlias
-            );
+        if (isset($query['site_id']) && $query['site_id'] !== '') {
             if ($query['site_id']) {
+                $siteAlias = $this->createAlias();
+                $qb->innerJoin(
+                    'omeka_root.site',
+                    $siteAlias
+                );
                 $qb->andWhere($expr->eq(
                     $siteAlias . '.id',
                     $this->createNamedParameter($qb, $query['site_id'])
                 ));
             }
-            // A "0" means a search in admin board.
+            // A "0" means a search in admin board (site is null).
             else {
-                $qb->andWhere($expr->isNull($siteAlias . '.id'));
+                $qb->andWhere($expr->isNull('omeka_root.site'));
             }
         }
 
