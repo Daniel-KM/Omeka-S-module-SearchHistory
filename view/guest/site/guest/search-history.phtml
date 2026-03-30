@@ -26,15 +26,17 @@ $this->headScript()
 
 $this->htmlElement('body')->appendAttribute('class', 'search-request browse');
 
-$sortHeadings = [
-    [
-        'label' => $translate('Comment'),
-        'value' => 'comment',
-    ],
-    [
-        'label' => $translate('Created'),
-        'value' => 'created',
-    ],
+$escape = $plugins->get('escapeHtml');
+$escapeAttr = $plugins->get('escapeHtmlAttr');
+
+$currentSortBy = $this->params()->fromQuery('sort_by', 'created');
+$currentSortOrder = $this->params()->fromQuery('sort_order', 'desc');
+$currentSort = $currentSortBy . '-' . $currentSortOrder;
+$sortOptions = [
+    'created-desc' => $translate('Date (descending)'), // @translate
+    'created-asc' => $translate('Date (ascending)'), // @translate
+    'comment-asc' => $translate('Title (ascending)'), // @translate
+    'comment-desc' => $translate('Title (descending)'), // @translate
 ];
 ?>
 
@@ -52,13 +54,22 @@ $sortHeadings = [
 
 <?= $this->searchFilters() ?>
 
+<?php $totalResults = $this->pagination()->getPaginator()->getTotalCount(); ?>
 <div class="browse-controls">
     <?= $this->pagination() ?>
-    <?= $this->sortSelector($sortHeadings) ?>
+    <div class="per-pages-and-sort">
+        <span class="browse-total"><?= sprintf($translatePlural('%d saved search', '%d saved searches', $totalResults), $totalResults) ?></span>
+        <label for="sort-search-history"><?= $translate('Sort by') ?></label>
+        <select id="sort-search-history" onchange="var v=this.value.split('-'),p=new URLSearchParams(window.location.search);p.set('sort_by',v[0]);p.set('sort_order',v[1]);window.location.search=p;">
+            <?php foreach ($sortOptions as $value => $label): ?>
+            <option value="<?= $escapeAttr($value) ?>"<?= $value === $currentSort ? ' selected' : '' ?>><?= $escape($label) ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
 </div>
 
 <?php if (count($searchRequests)): ?>
-<h3><?= sprintf($translatePlural('%d saved search', '%d saved searches', $searchRequests), $searchRequests) ?></h3>
+<h3><?= sprintf($translatePlural('%d saved search', '%d saved searches', count($searchRequests)), count($searchRequests)) ?></h3>
 
 <?php $this->trigger('view.browse.before'); ?>
 <ul class="search-request-list">
