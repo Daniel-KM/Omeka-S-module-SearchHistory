@@ -34,7 +34,8 @@ if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActi
         $translate('The module %1$s should be upgraded to version %2$s or later.'), // @translate
         'Common', '3.4.82'
     );
-    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
+    $messenger->addError($message);
+    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $translate('Missing requirement. Unable to upgrade.')); // @translate
 }
 
 if (version_compare($oldVersion, '3.3.0.4', '<')) {
@@ -111,4 +112,20 @@ if (version_compare($oldVersion, '3.4.5', '<')) {
         'It is now possible to use a dialog for the form.' // @translate
     );
     $messenger->addSuccess($message);
+}
+
+if (version_compare($oldVersion, '3.4.8', '<')) {
+    $sql = <<<'SQL'
+        ALTER TABLE `search_request`
+        CHANGE `query` `query` LONGTEXT DEFAULT NULL;
+        SQL;
+    $connection->executeStatement($sql);
+}
+
+if (version_compare($oldVersion, '3.4.9', '<')) {
+    $siteIds = $api->search('sites', [], ['returnScalar' => 'id'])->getContent();
+    foreach ($siteIds as $siteId) {
+        $siteSettings->setTargetId($siteId);
+        $siteSettings->set('searchhistory_placement', ['browse/items', 'browse/media', 'browse/item_sets']);
+    }
 }

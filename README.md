@@ -98,7 +98,7 @@ of the CeCILL license and that you accept its terms.
 Copyright
 ---------
 
-* Copyright Daniel Berthereau, 2019-2025 (see [Daniel-KM] on GitLab)
+* Copyright Daniel Berthereau, 2019-2026 (see [Daniel-KM] on GitLab)
 
 This module was first developed for the [Fondation Maison de Salins].
 New developments were done for [Musée de Bretagne].
