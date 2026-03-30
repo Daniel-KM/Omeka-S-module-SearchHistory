@@ -93,6 +93,11 @@ class Module extends AbstractModule
             [$this, 'handleViewBrowseAfter']
         );
         $sharedEventManager->attach(
+            \Omeka\Form\SiteSettingsForm::class,
+            'form.add_elements',
+            [$this, 'handleSiteSettings']
+        );
+        $sharedEventManager->attach(
             \Guest\Controller\Site\GuestController::class,
             'guest.widgets',
             [$this, 'handleGuestWidgets']

@@ -17,8 +17,9 @@ class SearchHistoryLink extends AbstractHelper
      */
     protected $searchRequestAdapter;
 
-    public function __construct(SearchRequestAdapter $searchRequestAdapter)
-    {
+    public function __construct(
+        SearchRequestAdapter $searchRequestAdapter
+    ) {
         $this->searchRequestAdapter = $searchRequestAdapter;
     }
 
@@ -62,6 +63,8 @@ class SearchHistoryLink extends AbstractHelper
             }
         }
 
+        $removeInAccount = (bool) $view->siteSetting('searchhistory_remove_in_account', false);
+
         $template = $options['template'] ?? self::PARTIAL_NAME;
 
         return $view->partial($template, [
@@ -69,6 +72,7 @@ class SearchHistoryLink extends AbstractHelper
             'engine' => $engine,
             'query' => $query,
             'searchRequest' => $searchRequest,
+            'removeInAccount' => $removeInAccount,
         ]);
     }
 

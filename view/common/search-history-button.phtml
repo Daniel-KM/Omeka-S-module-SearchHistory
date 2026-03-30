@@ -5,6 +5,7 @@
  * @var \SearchHistory\Api\Representation\SearchRequestRepresentation $searchRequest
  * @var string $engine
  * @var string $query
+ * @var bool $removeInAccount
  */
 
 if (!$engine) {
@@ -27,9 +28,21 @@ $this->headScript()
 ?>
 
 <div class="search-history search-history-actions">
+
+<?php if (!empty($removeInAccount) && $searchRequest): ?>
+
+    <a class="button search-history-button search-history-link" href="<?= $url('site/guest/search-history', [], true) ?>">
+        <span class="search-history-icon"><?= $translate('Search already saved') ?></span>
+    </a>
+
+<?php else: ?>
+
     <button type="button" class="button delete search-history-button search-history-delete <?= $searchRequest ? '' : ' hidden' ?>" data-url="<?= $searchRequest ? $url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true) : '' ?>" data-msg-success="<?= $escapeAttr($translate('Search deleted from your account.')) ?>">
         <span class="search-history-icon"><?= $translate('Delete saved search') ?></span>
     </button>
+
+<?php endif; ?>
+
     <button type="button" class="button add search-history-button search-history-save<?= $searchRequest ? ' hidden' : '' ?>" data-msg-success="<?= $escapeAttr($translate('Search saved in your account.')) ?>" data-msg-no-query="<?= $escapeAttr('The current search has no query.') ?>">
         <span class="search-history-icon"><?= $translate('Save current search') ?></span>
     </button>

@@ -29,6 +29,11 @@ return  [
             'searchHistoryLink' => Service\ViewHelper\SearchHistoryLinkFactory::class,
         ],
     ],
+    'form_elements' => [
+        'invokables' => [
+            Form\SiteSettingsFieldset::class => Form\SiteSettingsFieldset::class,
+        ],
+    ],
     'controllers' => [
         'invokables' => [
             'SearchHistory\Controller\Site\GuestBoard' => Controller\Site\GuestBoardController::class,
@@ -138,5 +143,8 @@ return  [
         ],
     ],
     'searchhistory' => [
+        'site_settings' => [
+            'searchhistory_remove_in_account' => false,
+        ],
     ],
 ];
