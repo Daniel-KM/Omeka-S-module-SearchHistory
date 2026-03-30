@@ -94,6 +94,50 @@ class SearchRequestController extends AbstractActionController
         ]);
     }
 
+    public function clearAction()
+    {
+        $user = $this->identity();
+        if (!$user) {
+            return $this->jSend(JSend::FAIL, [
+                'user' => $this->translate('Access forbidden'), // @translate
+            ], null, Response::STATUS_CODE_403);
+        }
+
+        if (!$this->getRequest()->isPost()) {
+            return $this->jSend(JSend::FAIL, [
+                'method' => $this->translate('Method not allowed'), // @translate
+            ], null, Response::STATUS_CODE_405);
+        }
+
+        $period = $this->params()->fromPost('period', 'all');
+        $periods = [
+            '1h' => '-1 hour',
+            '24h' => '-24 hours',
+            '7d' => '-7 days',
+            '30d' => '-30 days',
+            'all' => null,
+        ];
+        $modifier = $periods[$period] ?? null;
+
+        $entityManager = $this->searchRequestAdapter->getEntityManager();
+        $qb = $entityManager->createQueryBuilder();
+        $qb->delete(\SearchHistory\Entity\SearchRequest::class, 'sr')
+            ->where('sr.user = :userId')
+            ->setParameter('userId', $user->getId());
+
+        if ($modifier) {
+            $since = new \DateTime($modifier);
+            $qb->andWhere('sr.created >= :since')
+                ->setParameter('since', $since);
+        }
+
+        $count = $qb->getQuery()->execute();
+
+        return $this->jSend(JSend::SUCCESS, [
+            'count' => $count,
+        ]);
+    }
+
     public function deleteAction()
     {
         $returnJson = $this->getRequest()->isXmlHttpRequest();

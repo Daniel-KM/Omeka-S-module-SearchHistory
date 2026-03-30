@@ -186,5 +186,75 @@
             });
         });
 
+        $(document).on('click', '.search-history-clear', function(ev) {
+            ev.preventDefault();
+            ev.stopImmediatePropagation();
+            const clearButton = $(this);
+            const urlClear = clearButton.data('url');
+            const periods = [
+                { value: '1h', label: Omeka.jsTranslate('Last hour') },
+                { value: '24h', label: Omeka.jsTranslate('Last 24 hours') },
+                { value: '7d', label: Omeka.jsTranslate('Last 7 days') },
+                { value: '30d', label: Omeka.jsTranslate('Last 30 days') },
+                { value: 'all', label: Omeka.jsTranslate('All history') },
+            ];
+            let radioHtml = '<div class="search-history-clear-options">';
+            periods.forEach(function(p, i) {
+                const checked = i === 0 ? ' checked' : '';
+                radioHtml += '<label class="search-history-clear-option">'
+                    + '<input type="radio" name="clear_period" value="' + p.value + '"' + checked + ' /> '
+                    + p.label
+                    + '</label>';
+            });
+            radioHtml += '</div>';
+            const promise = CommonDialog.dialogGeneric({
+                heading: Omeka.jsTranslate('Clear search history'),
+                message: Omeka.jsTranslate('This action is irreversible. Select the period to clear:'),
+                nl2br: true,
+                body: radioHtml,
+                textOk: Omeka.jsTranslate('Confirm'),
+                textCancel: Omeka.jsTranslate('Cancel'),
+            });
+            // Capture dialog ref before it gets removed on resolve.
+            const dialogEl = document.querySelector('dialog.dialog-generic');
+            promise.then(function(result) {
+                if (!result) return;
+                const checked = dialogEl
+                    ? dialogEl.querySelector('input[name="clear_period"]:checked')
+                    : null;
+                const period = checked ? checked.value : 'all';
+                $.ajax({
+                    type: 'POST',
+                    url: urlClear,
+                    data: { period: period },
+                    beforeSend: function() {
+                        CommonDialog.spinnerEnable(clearButton[0]);
+                    },
+                })
+                .done(function() {
+                    CommonDialog.spinnerDisable(clearButton[0]);
+                    CommonDialog.dialogAlert({
+                        heading: Omeka.jsTranslate('Clear search history'),
+                        message: clearButton.data('msg-success'),
+                        nl2br: true,
+                    }).then(function() {
+                        window.location.reload();
+                    });
+                })
+                .fail(function(xhr) {
+                    CommonDialog.spinnerDisable(clearButton[0]);
+                    const data = xhr.responseJSON;
+                    const msg = data && data.data
+                        ? CommonDialog.jSendMessage(data)
+                        : Omeka.jsTranslate('An error occurred.');
+                    CommonDialog.dialogAlert({
+                        heading: Omeka.jsTranslate('Clear search history'),
+                        message: msg,
+                        nl2br: true,
+                    });
+                });
+            });
+        });
+
     });
 })();

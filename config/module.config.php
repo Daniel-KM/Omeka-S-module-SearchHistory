@@ -68,7 +68,7 @@ return  [
                         'options' => [
                             'route' => '/search-history[/:action]',
                             'constraints' => [
-                                'action' => 'add|browse',
+                                'action' => 'add|browse|clear',
                             ],
                             'defaults' => [
                                 '__NAMESPACE__' => 'SearchHistory\Controller\Site',
@@ -128,13 +128,22 @@ return  [
     ],
     'js_translate_strings' => [
         'An error occurred.', // @translate
+        'Cancel', // @translate
         'Cannot save search: the dialog is missing.', // @translate
         'Check input', // @translate
+        'Clear search history', // @translate
+        'Confirm', // @translate
+        'Last hour', // @translate
+        'Last 24 hours', // @translate
+        'Last 7 days', // @translate
+        'Last 30 days', // @translate
+        'All history', // @translate
         'No query is set.', // @translate
         'Save search', // @translate
         'Search deleted from your account.', // @translate
         'Search saved in your account.', // @translate
         'The current search has no query.', // @translate
+        'This action is irreversible. Select the period to clear:', // @translate
         'You can find it in your account.', // @translate
         'Your search is saved.', // @translate
     ],
