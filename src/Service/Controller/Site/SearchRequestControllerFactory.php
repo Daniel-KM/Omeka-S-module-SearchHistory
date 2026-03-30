@@ -2,7 +2,7 @@
 
 namespace SearchHistory\Service\Controller\Site;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use SearchHistory\Controller\Site\SearchRequestController;
 

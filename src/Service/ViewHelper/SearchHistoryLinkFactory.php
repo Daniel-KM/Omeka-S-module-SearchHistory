@@ -2,7 +2,7 @@
 
 namespace SearchHistory\Service\ViewHelper;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use SearchHistory\View\Helper\SearchHistoryLink;
 
