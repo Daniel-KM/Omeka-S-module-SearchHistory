@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 00:00+0000\n"
+"POT-Creation-Date: 2026-03-30 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,30 +17,41 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/scripts/upgrade.php:34 Module.php:63
+#: data/scripts/upgrade.php:34 Module.php:73
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr ""
 
-#: Module.php:106 view/guest/site/guest/search-history.phtml:51
+#: data/scripts/upgrade.php:38
+msgid "Missing requirement. Unable to upgrade."
+msgstr ""
+
+#: Module.php:136 view/guest/site/guest/search-history.phtml:55
 msgid "Search History"
 msgstr ""
 
-#: src/Controller/Site/SearchRequestController.php:27
-#: src/Controller/Site/SearchRequestController.php:87
-#: src/Controller/Site/SearchRequestController.php:90
+#: src/Controller/Site/SearchRequestController.php:26
+#: src/Controller/Site/SearchRequestController.php:114
+#: src/Controller/Site/SearchRequestController.php:151
+msgid "Method not allowed"
+msgstr ""
+
+#: src/Controller/Site/SearchRequestController.php:33
+#: src/Controller/Site/SearchRequestController.php:108
+#: src/Controller/Site/SearchRequestController.php:161
+#: src/Controller/Site/SearchRequestController.php:164
 msgid "Access forbidden"
 msgstr ""
 
-#: src/Controller/Site/SearchRequestController.php:37
+#: src/Controller/Site/SearchRequestController.php:43
 msgid "A query is required"
 msgstr ""
 
-#: src/Controller/Site/SearchRequestController.php:44
+#: src/Controller/Site/SearchRequestController.php:50
 msgid "The path of the engine is required"
 msgstr ""
 
-#: src/Controller/Site/SearchRequestController.php:68
+#: src/Controller/Site/SearchRequestController.php:92
 msgid "Unable to save."
 msgstr ""
 
@@ -48,23 +59,101 @@ msgstr ""
 msgid "Give a name to your search"
 msgstr ""
 
-#: view/common/search-history-button.phtml:30
+#: view/common/search-history-button.phtml:35
+msgid "Search already saved"
+msgstr ""
+
+#: view/common/search-history-button.phtml:42
+#: view/common/search-history-button.phtml:50
+msgid "Save search"
+msgstr ""
+
+#: view/common/search-history-button.phtml:43
 msgid "Search deleted from your account."
 msgstr ""
 
-#: view/common/search-history-button.phtml:31
+#: view/common/search-history-button.phtml:44
 msgid "Delete saved search"
 msgstr ""
 
-#: view/common/search-history-button.phtml:33
+#: view/common/search-history-button.phtml:51
 msgid "Search saved in your account."
 msgstr ""
 
-#: view/common/search-history-button.phtml:34
+#: view/common/search-history-button.phtml:52
+msgid "The current search has no query."
+msgstr ""
+
+#: view/common/search-history-button.phtml:53
+msgid "Cannot save search: the dialog is missing."
+msgstr ""
+
+#: view/common/search-history-button.phtml:54
 msgid "Save current search"
 msgstr ""
 
+#: view/guest/site/guest/search-history.phtml:36
+msgid "Date (descending)"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:37
+msgid "Date (ascending)"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:38
+msgid "Title (ascending)"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:39
+msgid "Title (descending)"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:73
+msgid "Last hour"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:74
+msgid "Last 24 hours"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:75
+msgid "Last 7 days"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:76
+msgid "Last 30 days"
+msgstr ""
+
 #: view/guest/site/guest/search-history.phtml:77
+msgid "All history"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:82
+#: view/guest/site/guest/search-history.phtml:88
+msgid "Clear search history"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:83
+msgid "This action is irreversible. Select the period to clear:"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:84
+msgid "You have cleared the selected items from your history."
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:84
+msgid "Feel free to explore our library again."
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:104
+msgid "Delete search"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:105
+msgid "Are you sure you want to delete this saved search?"
+msgstr ""
+
+#: view/guest/site/guest/search-history.phtml:118
 msgid "No search requests are saved."
 msgstr ""
 
@@ -72,24 +161,60 @@ msgstr ""
 msgid "Search history"
 msgstr ""
 
-#: data/scripts/upgrade.php:81
+#: data/scripts/upgrade.php:82
 msgid ""
 "The view helper \"linkSearchHistory\" was renamed \"searchHistoryLink\" and "
 "you should update your theme. Check your theme. Matching templates: {json}"
 msgstr ""
 
-#: data/scripts/upgrade.php:111
+#: data/scripts/upgrade.php:112
 msgid "It is now possible to use a dialog for the form."
 msgstr ""
 
-#: config/module.config.php:125
-msgid "No query is set."
+#: src/Form/SiteSettingsFieldset.php:18
+msgid "Old themes"
 msgstr ""
 
-#: config/module.config.php:126
-msgid "Your search is saved."
+#: src/Form/SiteSettingsFieldset.php:32
+msgid "Automatic save"
 msgstr ""
 
-#: config/module.config.php:127
-msgid "You can find it in your account."
+#: src/Form/SiteSettingsFieldset.php:33
+msgid ""
+"When checked, all searches are saved automatically and the save button is "
+"hidden on search result pages."
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:45
+msgid "Hide delete button on search page"
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:46
+msgid ""
+"When checked, replace the delete button by a link to the search history page "
+"in the user account."
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:58
+msgid "Search history (old themes)"
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:60
+msgid "Item browse"
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:61
+msgid "Media browse"
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:62
+msgid "Item set browse"
+msgstr ""
+
+#: config/module.config.php:131
+msgid "An error occurred."
+msgstr ""
+
+#: config/module.config.php:135
+msgid "Check input"
 msgstr ""
