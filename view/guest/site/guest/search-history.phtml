@@ -85,7 +85,10 @@ $sortOptions = [
 <?php foreach ($searchRequests as $searchRequest): ?>
     <li class="search-request">
         <h4><?= $hyperlink($searchRequest->comment(), $searchRequest->originalUrl()) ?></h4>
-        <?= $hyperlink($translate('Delete'), $url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true), ['class' => 'search-history-delete']) ?>
+        <button type="button" class="button search-history-delete-one"
+            data-url="<?= $escapeAttr($url('site/search-history-id', ['action' => 'delete', 'id' => $searchRequest->id()], true)) ?>">
+            <?= $translate('Delete') ?>
+        </button>
     </li>
     <?php endforeach; ?>
 </ul>

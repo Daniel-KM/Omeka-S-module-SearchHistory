@@ -186,6 +186,46 @@
             });
         });
 
+        $(document).on('click', '.search-history-delete-one', function(ev) {
+            ev.preventDefault();
+            ev.stopImmediatePropagation();
+            const btn = $(this);
+            const urlDelete = btn.data('url');
+            CommonDialog.dialogConfirm({
+                heading: Omeka.jsTranslate('Delete search'),
+                message: Omeka.jsTranslate('Are you sure you want to delete this saved search?'),
+                nl2br: true,
+                textOk: Omeka.jsTranslate('Delete'),
+                textCancel: Omeka.jsTranslate('Cancel'),
+            }).then(function(result) {
+                if (!result) return;
+                $.ajax({
+                    type: 'POST',
+                    url: urlDelete,
+                    beforeSend: function() {
+                        CommonDialog.spinnerEnable(btn[0]);
+                    },
+                })
+                .done(function() {
+                    btn.closest('li.search-request').fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                })
+                .fail(function(xhr) {
+                    CommonDialog.spinnerDisable(btn[0]);
+                    const data = xhr.responseJSON;
+                    const msg = data && data.data
+                        ? CommonDialog.jSendMessage(data)
+                        : Omeka.jsTranslate('An error occurred.');
+                    CommonDialog.dialogAlert({
+                        heading: Omeka.jsTranslate('Delete search'),
+                        message: msg,
+                        nl2br: true,
+                    });
+                });
+            });
+        });
+
         $(document).on('click', '.search-history-clear', function(ev) {
             ev.preventDefault();
             ev.stopImmediatePropagation();
