@@ -76,6 +76,27 @@
         $(document).on('click', 'button.search-history-save', function() {
             const dialog = document.querySelector('dialog.dialog-search-save');
             if (dialog) {
+                const input = dialog.querySelector('input[name="comment"]');
+                if (input && !input.value) {
+                    const params = new URLSearchParams(window.location.search);
+                    const parts = [];
+                    ['q', 'search', 'fulltext_search'].forEach(function(key) {
+                        const val = params.get(key);
+                        if (val) parts.push(val.trim());
+                    });
+                    const refines = params.getAll('refine[]');
+                    if (refines.length) {
+                        refines.forEach(function(val) {
+                            if (val) parts.push(val.trim());
+                        });
+                    } else {
+                        const refine = params.get('refine');
+                        if (refine) parts.push(refine.trim());
+                    }
+                    if (parts.length) {
+                        input.value = parts.filter(Boolean).join(' — ');
+                    }
+                }
                 dialog.showModal();
                 $(dialog).trigger('o:dialog-opened');
             } else {
