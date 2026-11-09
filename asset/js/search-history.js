@@ -2,6 +2,11 @@
 
 (function() {
     $(document).ready(function() {
+        // Omeka.jsTranslate() exists only when the theme calls the view helper
+        // jsTranslate(), so fallback to the original string.
+        const jsTranslate = (str) => typeof Omeka !== 'undefined' && typeof Omeka.jsTranslate === 'function'
+            ? Omeka.jsTranslate(str)
+            : str;
 
         /**
          * Requires common-dialog.js.
@@ -16,11 +21,11 @@
             ev.preventDefault();
             ev.stopImmediatePropagation();
 
-            const heading = saveBtn.data('heading') || Omeka.jsTranslate('Save search');
+            const heading = saveBtn.data('heading') || jsTranslate('Save search');
 
             const query = window.location.search.substring(1);
             if (!query || !query.length) {
-                const msg = saveBtn.data('msg-no-query') || Omeka.jsTranslate('The current search has no query.');
+                const msg = saveBtn.data('msg-no-query') || jsTranslate('The current search has no query.');
                 CommonDialog.dialogAlert({
                     heading: heading,
                     message: msg,
@@ -55,7 +60,7 @@
                     msg = msg || CommonDialog.jSendMessage(data);
                     CommonDialog.dialogAlert({
                         heading: heading,
-                        message: msg || Omeka.jsTranslate('Search saved in your account.'),
+                        message: msg || jsTranslate('Search saved in your account.'),
                         nl2br: true,
                     });
                     // Update buttons.
@@ -71,14 +76,14 @@
                         const msg = CommonDialog.jSendMessage(data);
                         CommonDialog.dialogAlert({
                             heading: heading,
-                            message: msg || Omeka.jsTranslate('Check input'),
+                            message: msg || jsTranslate('Check input'),
                             nl2br: true,
                         });
                         form[0].reset();
                     } else {
                         const msg = data && data.status === 'error' && data.message && data.message.length
                             ? data.message
-                            : Omeka.jsTranslate('An error occurred.');
+                            : jsTranslate('An error occurred.');
                         CommonDialog.dialogAlert({
                             heading: heading,
                             message: msg,
@@ -118,8 +123,8 @@
                 dialog.showModal();
                 $(dialog).trigger('o:dialog-opened');
             } else {
-                const heading = saveBtn.data('heading') || Omeka.jsTranslate('Save search');
-                const msg = saveBtn.data('msg-missing') || Omeka.jsTranslate('Cannot save search: the dialog is missing.');
+                const heading = saveBtn.data('heading') || jsTranslate('Save search');
+                const msg = saveBtn.data('msg-missing') || jsTranslate('Cannot save search: the dialog is missing.');
                 CommonDialog.dialogAlert({
                     heading: heading,
                     message: msg,
@@ -139,7 +144,7 @@
             ev.stopImmediatePropagation();
             const submitButton = $(this);
             const urlButton = submitButton.data('url');
-            const heading = submitButton.data('heading') || Omeka.jsTranslate('Save search');
+            const heading = submitButton.data('heading') || jsTranslate('Save search');
             $.ajax({
                 type: 'POST',
                 url: urlButton,
@@ -150,7 +155,7 @@
                 msg = msg || CommonDialog.jSendMessage(data);
                 CommonDialog.dialogAlert({
                     heading: heading,
-                    message: msg || Omeka.jsTranslate('Search deleted from your account.'),
+                    message: msg || jsTranslate('Search deleted from your account.'),
                     nl2br: true,
                 });
                 submitButton.addClass('hidden').hide();
@@ -162,13 +167,13 @@
                     const msg = CommonDialog.jSendMessage(data);
                     CommonDialog.dialogAlert({
                         heading: heading,
-                        message: msg || Omeka.jsTranslate('Check input'),
+                        message: msg || jsTranslate('Check input'),
                         nl2br: true,
                     });
                 } else {
                     const msg = data && data.status === 'error' && data.message && data.message.length
                         ? data.message
-                        : Omeka.jsTranslate('An error occurred.');
+                        : jsTranslate('An error occurred.');
                     CommonDialog.dialogAlert({
                         heading: heading,
                         message: msg,
@@ -191,13 +196,13 @@
             ev.stopImmediatePropagation();
             const btn = $(this);
             const urlDelete = btn.data('url');
-            const heading = btn.data('heading') || Omeka.jsTranslate('Delete search');
+            const heading = btn.data('heading') || jsTranslate('Delete search');
             CommonDialog.dialogConfirm({
                 heading: heading,
-                message: btn.data('msg-confirm') || Omeka.jsTranslate('Are you sure you want to delete this saved search?'),
+                message: btn.data('msg-confirm') || jsTranslate('Are you sure you want to delete this saved search?'),
                 nl2br: true,
-                textOk: btn.data('text-ok') || Omeka.jsTranslate('Delete'),
-                textCancel: btn.data('text-cancel') || Omeka.jsTranslate('Cancel'),
+                textOk: btn.data('text-ok') || jsTranslate('Delete'),
+                textCancel: btn.data('text-cancel') || jsTranslate('Cancel'),
             }).then(function(result) {
                 if (!result) return;
                 btn.prop('disabled', true);
@@ -219,7 +224,7 @@
                     const data = xhr.responseJSON;
                     const msg = data && data.data
                         ? CommonDialog.jSendMessage(data)
-                        : Omeka.jsTranslate('An error occurred.');
+                        : jsTranslate('An error occurred.');
                     CommonDialog.dialogAlert({
                         heading: heading,
                         message: msg,
@@ -234,13 +239,13 @@
             ev.stopImmediatePropagation();
             const clearButton = $(this);
             const urlClear = clearButton.data('url');
-            const heading = clearButton.data('heading') || Omeka.jsTranslate('Clear search history');
+            const heading = clearButton.data('heading') || jsTranslate('Clear search history');
             const periods = clearButton.data('periods') || [
-                { value: '1h', label: Omeka.jsTranslate('Last hour') },
-                { value: '24h', label: Omeka.jsTranslate('Last 24 hours') },
-                { value: '7d', label: Omeka.jsTranslate('Last 7 days') },
-                { value: '30d', label: Omeka.jsTranslate('Last 30 days') },
-                { value: 'all', label: Omeka.jsTranslate('All history') },
+                { value: '1h', label: jsTranslate('Last hour') },
+                { value: '24h', label: jsTranslate('Last 24 hours') },
+                { value: '7d', label: jsTranslate('Last 7 days') },
+                { value: '30d', label: jsTranslate('Last 30 days') },
+                { value: 'all', label: jsTranslate('All history') },
             ];
             const escHtml = function(s) {
                 const d = document.createElement('div');
@@ -258,11 +263,11 @@
             radioHtml += '</div>';
             const promise = CommonDialog.dialogGeneric({
                 heading: heading,
-                message: clearButton.data('msg-confirm') || Omeka.jsTranslate('This action is irreversible. Select the period to clear:'),
+                message: clearButton.data('msg-confirm') || jsTranslate('This action is irreversible. Select the period to clear:'),
                 nl2br: true,
                 body: radioHtml,
-                textOk: clearButton.data('text-ok') || Omeka.jsTranslate('Confirm'),
-                textCancel: clearButton.data('text-cancel') || Omeka.jsTranslate('Cancel'),
+                textOk: clearButton.data('text-ok') || jsTranslate('Confirm'),
+                textCancel: clearButton.data('text-cancel') || jsTranslate('Cancel'),
             });
             // Capture dialog ref before it gets removed on resolve.
             const dialogEl = document.querySelector('dialog.dialog-generic');
@@ -295,7 +300,7 @@
                     const data = xhr.responseJSON;
                     const msg = data && data.data
                         ? CommonDialog.jSendMessage(data)
-                        : Omeka.jsTranslate('An error occurred.');
+                        : jsTranslate('An error occurred.');
                     CommonDialog.dialogAlert({
                         heading: heading,
                         message: msg,
