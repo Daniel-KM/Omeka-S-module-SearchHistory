@@ -55,7 +55,7 @@ class SiteSettingsFieldset extends Fieldset
                 'type' => CommonElement\OptionalMultiCheckbox::class,
                 'options' => [
                     'element_group' => 'themes_old',
-                    'label' => 'Search history (old themes)', // @translate
+                    'label' => 'Search history', // @translate
                     'value_options' => [
                         'browse/items' => 'Item browse', // @translate
                         'browse/media' => 'Media browse', // @translate
