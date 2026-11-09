@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-30 00:00+0000\n"
+"POT-Creation-Date: 2026-10-05 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/scripts/upgrade.php:34 Module.php:73
+#: data/scripts/upgrade.php:34 Module.php:90
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr ""
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Missing requirement. Unable to upgrade."
 msgstr ""
 
-#: Module.php:136 view/guest/site/guest/search-history.phtml:55
+#: Module.php:153 view/guest/site/guest/search-history.phtml:55
 msgid "Search History"
 msgstr ""
 
@@ -55,17 +55,18 @@ msgstr ""
 msgid "Unable to save."
 msgstr ""
 
-#: view/common/dialog/search-history-save.phtml:39
+#: view/common/dialog/search-history-save.phtml:37
+#: view/common/search-history-button.phtml:42
+#: view/common/search-history-button.phtml:50
+msgid "Save search"
+msgstr ""
+
+#: view/common/dialog/search-history-save.phtml:41
 msgid "Give a name to your search"
 msgstr ""
 
 #: view/common/search-history-button.phtml:35
 msgid "Search already saved"
-msgstr ""
-
-#: view/common/search-history-button.phtml:42
-#: view/common/search-history-button.phtml:50
-msgid "Save search"
 msgstr ""
 
 #: view/common/search-history-button.phtml:43
@@ -161,13 +162,13 @@ msgstr ""
 msgid "Search history"
 msgstr ""
 
-#: data/scripts/upgrade.php:82
+#: data/scripts/upgrade.php:84
 msgid ""
 "The view helper \"linkSearchHistory\" was renamed \"searchHistoryLink\" and "
 "you should update your theme. Check your theme. Matching templates: {json}"
 msgstr ""
 
-#: data/scripts/upgrade.php:112
+#: data/scripts/upgrade.php:114
 msgid "It is now possible to use a dialog for the form."
 msgstr ""
 
@@ -193,10 +194,6 @@ msgstr ""
 msgid ""
 "When checked, replace the delete button by a link to the search history page "
 "in the user account."
-msgstr ""
-
-#: src/Form/SiteSettingsFieldset.php:58
-msgid "Search history (old themes)"
 msgstr ""
 
 #: src/Form/SiteSettingsFieldset.php:60

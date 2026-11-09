@@ -1,13 +1,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Daniel Berthereau <Daniel.github@Berthereau.net>, 2020.
+# Daniel Berthereau <Daniel.fr@Berthereau.net>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-30 00:00+0000\n"
-"PO-Revision-Date: 2026-03-30 00:00+0000\n"
+"POT-Creation-Date: 2026-10-05 00:00+0000\n"
+"PO-Revision-Date: 2026-10-05 00:00+0000\n"
 "Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.6\n"
 
-#: data/scripts/upgrade.php:34 Module.php:73
+#: data/scripts/upgrade.php:34 Module.php:90
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr "Le module %1$s doit être mis à niveau à la version %2$s ou supérieure."
@@ -26,7 +26,7 @@ msgstr "Le module %1$s doit être mis à niveau à la version %2$s ou supérieur
 msgid "Missing requirement. Unable to upgrade."
 msgstr "Pré-requis absent. Impossible de mettre à jour."
 
-#: Module.php:136 view/guest/site/guest/search-history.phtml:55
+#: Module.php:153 view/guest/site/guest/search-history.phtml:55
 msgid "Search History"
 msgstr "Historique des recherches"
 
@@ -55,18 +55,19 @@ msgstr "Le chemin de recherche est nécessaire"
 msgid "Unable to save."
 msgstr "Impossible d’enregistrer."
 
-#: view/common/dialog/search-history-save.phtml:39
+#: view/common/dialog/search-history-save.phtml:37
+#: view/common/search-history-button.phtml:42
+#: view/common/search-history-button.phtml:50
+msgid "Save search"
+msgstr "Enregistrer la recherche"
+
+#: view/common/dialog/search-history-save.phtml:41
 msgid "Give a name to your search"
 msgstr "Donnez un nom à votre recherche"
 
 #: view/common/search-history-button.phtml:35
 msgid "Search already saved"
 msgstr "Recherche déjà enregitrée"
-
-#: view/common/search-history-button.phtml:42
-#: view/common/search-history-button.phtml:50
-msgid "Save search"
-msgstr "Enregistrer la recherche"
 
 #: view/common/search-history-button.phtml:43
 msgid "Search deleted from your account."
@@ -161,7 +162,7 @@ msgstr "Aucune recherche n’est sauvegardée."
 msgid "Search history"
 msgstr "Historique de recherche"
 
-#: data/scripts/upgrade.php:82
+#: data/scripts/upgrade.php:84
 msgid ""
 "The view helper \"linkSearchHistory\" was renamed \"searchHistoryLink\" and "
 "you should update your theme. Check your theme. Matching templates: {json}"
@@ -169,7 +170,7 @@ msgstr ""
 "La fonction de vue « linkSearchHistory » a été renommé « searchHistoryLink » "
 "et vous devez mettre à jour votre thème. Fichiers correspondants : {json}"
 
-#: data/scripts/upgrade.php:112
+#: data/scripts/upgrade.php:114
 msgid "It is now possible to use a dialog for the form."
 msgstr "Il est désormais possible d’utiliser un dialogue pour le formulaire."
 
@@ -201,10 +202,6 @@ msgstr ""
 "Si coché, remplace le bouton Supprimer par un lien vers la page des "
 "recherches dans le compte utilisateur."
 
-#: src/Form/SiteSettingsFieldset.php:58
-msgid "Search history (old themes)"
-msgstr "Historique de recherche (ancien thèmes)"
-
 #: src/Form/SiteSettingsFieldset.php:60
 msgid "Item browse"
 msgstr "Contenu / liste"
@@ -224,6 +221,9 @@ msgstr "Une erreur est survenue."
 #: config/module.config.php:135
 msgid "Check input"
 msgstr "Vérifier la saisie"
+
+#~ msgid "Search history (old themes)"
+#~ msgstr "Historique de recherche (ancien thèmes)"
 
 #~ msgid "No query is set."
 #~ msgstr "Aucune requête n’est indiquée."
