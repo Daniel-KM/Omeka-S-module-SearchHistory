@@ -1,28 +1,31 @@
 /* Search History */
 
 @media all {
-    form#search-history-save .field {
-        display: block;
-    }
-    form#search-history-save .field .field-meta,
-    form#search-history-save .field .inputs {
-	   width: initial;
-	   padding-left: initial;
-    }
-    form#search-history-save .field .inputs input{
-       width: 100%;
-    }
+	form#search-history-save {
+		& .field {
+			display: block;
+			& .field-meta,
+			& .inputs {
+				width: initial;
+				padding-left: initial;
+			}
+			& .inputs input {
+				width: 100%;
+			}
+		}
+	}
 }
 
 /* Guest browse controls. */
 
-.browse-controls .per-pages-and-sort {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.browse-controls .per-pages-and-sort .browse-total {
-    font-weight: 700;
-    margin-right: 16px;
+.browse-controls {
+	& .per-pages-and-sort {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		& .browse-total {
+			font-weight: 700;
+			margin-right: 16px;
+		}
+	}
 }
