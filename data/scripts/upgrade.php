@@ -55,7 +55,9 @@ if (version_compare($oldVersion, '3.3.0.4', '<')) {
         ALTER TABLE `search_request`
             ADD CONSTRAINT FK_B6466005F6BD1646 FOREIGN KEY (`site_id`) REFERENCES `site` (`id`) ON DELETE SET NULL;
         SQL;
-    $connection->executeStatement($sql);
+    foreach (array_filter(array_map('trim', explode(";\n", $sql))) as $sql) {
+        $connection->executeStatement($sql);
+    }
 }
 
 if (version_compare($oldVersion, '3.4.5', '<')) {
@@ -95,7 +97,7 @@ if (version_compare($oldVersion, '3.4.5', '<')) {
         ->select('id', 'query')
         ->from('search_request', 'search_request')
         ->orderBy('id', 'asc');
-    $searchRequests = $connection->executeQuery($qb)->fetchAllKeyValue();
+    $searchRequests = $connection->executeQuery($qb->getSQL())->fetchAllKeyValue();
     foreach ($searchRequests as $id => $query) {
         $query = $adapter->cleanQuery($query);
         $sql = <<<'SQL'
